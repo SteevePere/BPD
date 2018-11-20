@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "hapi": "^17.7.0",
+    "hapi-mysql2": "^2.2.4",
     "mongoose": "^5.3.12"
   },
   "devDependencies": {},

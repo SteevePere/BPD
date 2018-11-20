@@ -12,8 +12,8 @@ const reportModel = new Schema({
 	reportingarea: { type: String },
 	fromdate: { type: String },
 	weapontype: { type: String },
-	shooting: { type: Boolean },
-	domestic: { type: Boolean },
+	shooting: { type: String },
+	domestic: { type: String },
 	shift: { type: String },
 	year: { type: String },
 	month: { type: String },
@@ -21,7 +21,7 @@ const reportModel = new Schema({
 	ucrpart: { type: String },
 	x: { type: String },
 	y: { type: String },
-	strretname: { type: String },
+	streetname: { type: String },
 	xstreetname: { type: String },
 	location: { type: String }
 });
