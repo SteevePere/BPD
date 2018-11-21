@@ -4,11 +4,12 @@ const Hapi = require('hapi');
 const mongoose = require('mongoose');
 const ReportController =  require('./controllers/report');
 const MongoDBUrl = 'mongodb://localhost:27017/crime_incident_reports';
+const MySQLURL = 'mysql://root:Makaveli@localhost/users';
 
 const launchServer = async function() {
 
     const MySQLopts = {
-        settings: 'mysql://root:Makaveli@localhost/users',
+        settings: MySQLURL,
         decorate: true
     }
 
@@ -54,13 +55,15 @@ const launchServer = async function() {
 
     server.route({
         method: 'GET',
-        path: '/info',
+        path: '/user',
         async handler(request) {
-            const pool = request.mysql.pool
-
+            const mysql = request.mysql.pool
+						const login = request.headers[ 'login' ];
+						const password = request.headers[ 'password' ];
             try {
-                const [rows, fields] = await pool.query('select * from users limit 10;')
-                return rows
+                const [row, fields] = await mysql.query('SELECT * FROM users WHERE login = ? and password = ?;',[login, password])
+                const user = row[0]
+								return user;
             } catch (err) {
                 return { err: err };
             }

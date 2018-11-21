@@ -1,32 +1,43 @@
 var Report =  require('../models/report');
 
 //Get all
-exports.list = (req, h) => {
-  return Report.find({}).exec().then((report) => {
+exports.list = async function(req, h) {
 
-    return { crime_incident_reports: report };
+		const mysql = req.mysql.pool
+		const token = req.headers[ 'authorization' ];
+		const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token])
+		const role = row[0]['role']
 
-  }).catch((err) => {
+		if (role == 'chief' || role === 'detective' || role === 'agent') {
 
-    return { err: err };
+		  return Report.find({}).exec().then((report) => {
 
-  });
+		    return { crime_incident_reports: report };
+
+		  }).catch((err) => {
+
+		    return { err: err };
+
+		  }); } else return { message: 'Unauthorized', code: 403};
 }
 
 //Get one
-exports.get = (req, h) => {
+exports.get = async function(req, h) {
 
-  return Report.findOne({ compnos: req.params.id }).exec().then((report) => {
+	const mysql = req.mysql.pool
+	const token = req.headers[ 'authorization' ];
+	const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token])
+	const role = row[0]['role']
 
-    if(!report) return { message: 'Report not Found' };
+	if (role == 'chief') {
 
-    return { report };
-
-  }).catch((err) => {
-
-    return { err: err };
-
-  });
+	  return Report.findOne({ compnos: req.params.id }).exec().then((report) => {
+	    if(!report) return { message: 'Report not Found' };
+			return { report };
+	  }).catch((err) => {
+	    return { err: err };
+	  });
+	} else return('fuck off')
 }
 
 //Create one
@@ -109,18 +120,26 @@ exports.update = (req, h) => {
 }
 
 //Delete one
-exports.remove = (req, h) => {
+exports.remove = async function(req, h) {
 
-	  return Report.findOne({ compnos: req.params.id }).exec().then((report) => {
+		const mysql = req.mysql.pool
+		const token = req.headers[ 'authorization' ];
+		const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token])
+		const role = row[0]['role']
 
-	    if(!report) return { message: 'Report not Found' };
+		if (role == 'chief') {
 
-			report.remove();
-			return { message: 'Report has been deleted' };
+		  return Report.findOne({ compnos: req.params.id }).exec().then((report) => {
 
-	  }).catch((err) => {
+		  if(!report) return { message: 'Report not Found' };
 
-	    return { err: err };
+				report.remove();
+				return { message: 'Report has been deleted' };
 
-	  });
+		  }).catch((err) => {
+
+		    return { err: err };
+
+		  }); } else return { message: 'Unauthorized', code: 403};
+
 	}
