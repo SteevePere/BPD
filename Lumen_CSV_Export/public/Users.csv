@@ -1,0 +1,6 @@
+Id,Position,"First Name","Last Name",Gender,"Birth Date","Hire Date",E-mail,Login,"Account Status"
+4,chief,Harold,Affleck,M,1964-08-12,1988-07-24,steevepere@gmail.com,haffleck,ON
+5,detective,Katherine,Johnson,F,1984-03-01,2009-04-17,steevepere@gmail.com,kjohnson,ON
+6,agent,Hank,Bauer,M,1962-12-04,1980-06-18,steevepere@gmail.com,hbauer,ON
+9,agent,test2,test2,M,1991-10-16,2011-10-16,test2@gmail.com,test1,OFF
+10,agent,test2,test2,M,1991-10-16,2011-10-16,test2@gmail.com,test2,OFF

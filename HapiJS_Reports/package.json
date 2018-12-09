@@ -1,0 +1,18 @@
+{
+  "name": "BPD",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "hapi": "^17.8.1",
+    "hapi-mysql2": "^2.2.4",
+    "mongoose": "^5.3.14",
+    "nodemon": "^1.18.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steeve Péré & Adalio Rachadi",
+  "license": "ETNA"
+}
