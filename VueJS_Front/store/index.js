@@ -24,8 +24,8 @@ export const mutations = {
   update (state, data) {
     state.auth = data
   },
-  SET_Pending: function (state, pending) {
-    state.Pending = pending
+  SET_Pending: function (state, data) {
+    state.Pending = data
   },
   Get_Insident(state,data) {
     state.type_insident = data
@@ -272,5 +272,25 @@ async perMonth({ commit }, { year, token}) {
       'Authorization': token
     }
     await axios.get('/export')
-  }
+  },
+
+  async validate({commit},{token, id})
+  {
+    try {
+        axios.defaults.headers = {
+          'Authorization': token
+      }
+      const { data } = await axios.put('/activate_user/'+id)
+      commit('SET_Pending',data)
+      return {
+        message : 'Success'
+      }
+    } catch (error) {
+      if (error.response) {
+        throw new Error('Activation error')
+      }
+      throw error
+    }
+  },
+
 }

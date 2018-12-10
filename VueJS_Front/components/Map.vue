@@ -6,7 +6,7 @@
         id="vandalism"
         type="radio"
         name="crime"
-        checked> <label for="vandalism">VANDALISM</label>
+        checked> <label for="vandalism">Vandalism</label>
       <input
         id="arrests"
         type="radio"
@@ -16,7 +16,7 @@
         id="gather"
         type="radio"
         name="crime">
-      <label for="gather">Gather</label>
+      <label for="gather">Other</label>
       <p
         v-if="formError"
         class="error">{{ formError }}</p>
@@ -157,6 +157,7 @@
 
   #controls {
       padding: 10px;
-      background-color: rgba(255, 255, 255, 0.9);
+      padding-top: 13px;
+      background-color: rgba(255, 255, 255, 0.6);
     }
 </style>

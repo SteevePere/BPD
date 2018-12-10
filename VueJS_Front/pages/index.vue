@@ -92,6 +92,7 @@ export default {
 
 <style>
 body {
+  /* background: white; */
   background: #1a2633;
 }
 
@@ -104,6 +105,7 @@ body {
   padding: 0;
   padding-bottom: 0px;
   max-width: 100%;
+  /* background-color: white; */
   background-color: #2A3F54;
 }
 
