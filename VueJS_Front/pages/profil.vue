@@ -1,12 +1,40 @@
 <template>
   <div>
     <Navbar/>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <b-button
+            to="/profil"
+            title="My Profile"
+            class="profil">
+            <img
+              style="max-height: 25px;max-width: 25px;padding-right: 10px;"
+              src="~/assets/user-solid.svg">{{ $store.state.authUser.data.first_name }} {{ $store.state.authUser.data.last_name }}</b-button>
+          <b-dropdown
+            class="menu"
+            left
+            text="Report Management">
+            <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
+              to="/crimes">Add New
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/allReport">Browse and Manage
+            </b-dropdown-item>
+          </b-dropdown>
+        </ul>
+      </div>
+    </div>
     <div class="col-md-9">
       <div class="card">
         <div class="card-body">
           <div class="row">
             <div class="col-md-12">
               <h4>Your Profile</h4>
+              <br>
               <div class="profile-header-container">
                 <div class="profile-header-img">
                   <img
@@ -90,42 +118,6 @@
                       disabled >{{ birth_date }}</p>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label
-                    for="newpass"
-                    class="col-4 col-form-label disabled">Old Password</label>
-                  <div class="col-8">
-                    <input
-                      id="newpass"
-                      v-model="oldpwd"
-                      name="newpass"
-                      placeholder="Old Password"
-                      class="form-control here"
-                      type="text">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label
-                    for="newpass"
-                    class="col-4 col-form-label disabled">New Password</label>
-                  <div class="col-8">
-                    <input
-                      id="newpass"
-                      v-model="newpwd"
-                      name="newpass"
-                      placeholder="New Password"
-                      class="form-control here"
-                      type="text">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="offset-4 col-8">
-                    <button
-                      name="submit"
-                      type="submit"
-                      class="btn btn-primary">Update My Password</button>
-                  </div>
-                </div>
               </form>
             </div>
           </div>
@@ -162,8 +154,27 @@
 </script>
 
 <style>
+
 .img {
   border-radius: 50%;
   text-align: center;
+}
+
+.col-md-9 {
+  max-width:70%;
+  margin-left: 22%;
+  margin-top: 50px;
+}
+
+.col-form-label {
+  color: white;
+}
+
+h4, .h4 {
+  color: white;
+}
+
+.row {
+  margin-right: 15px;
 }
 </style>

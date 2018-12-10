@@ -18,16 +18,11 @@
             <b-dropdown-item
               v-if="role === 'chief' || role === 'detective'"
               class="menu-item"
-              to="/crimes">Add a report
+              to="/crimes">Add New
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
-              v-if="role === 'chief'
-              ">Update a report
-            </b-dropdown-item>
-            <b-dropdown-divider/>
-            <b-dropdown-item
-              to="/allReport">Browse reports
+              to="/allReport">Browse and Manage
             </b-dropdown-item>
           </b-dropdown>
         </ul>
@@ -107,7 +102,6 @@ export default {
     },
     activate(id)
     {
-      console.log(id)
       return this.$store.dispatch('validate',{
         token: this.token,
         id: id

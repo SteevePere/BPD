@@ -91,6 +91,12 @@
 	text-decoration: none;
 }
 
+.admin:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+
 .user {
 	margin-left:10px;
 	font-family: Arial, Helvetica, sans-serif;

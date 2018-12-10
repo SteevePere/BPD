@@ -6,6 +6,7 @@
         <ul class="sidebar-nav">
           <b-button
             to="/profil"
+            title="My Profile"
             class="profil">
             <img
               style="max-height: 25px;max-width: 25px;padding-right: 10px;"
@@ -17,16 +18,11 @@
             <b-dropdown-item
               v-if="role === 'chief' || role === 'detective'"
               class="menu-item"
-              to="/crimes">Add a report
+              to="/crimes">Add New
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
-              v-if="role === 'chief'
-              ">Update a report
-            </b-dropdown-item>
-            <b-dropdown-divider/>
-            <b-dropdown-item
-              to="/allReport">Browse all reports
+              to="/allReport">Browse and Manage
             </b-dropdown-item>
           </b-dropdown>
         </ul>

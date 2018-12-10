@@ -1,11 +1,44 @@
 <template>
   <div>
     <Navbar/>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <b-button
+            to="/profil"
+            title="My Profile"
+            class="profil">
+            <img
+              style="max-height: 25px;max-width: 25px;padding-right: 10px;"
+              src="~/assets/user-solid.svg">{{ $store.state.authUser.data.first_name }} {{ $store.state.authUser.data.last_name }}</b-button>
+          <b-dropdown
+            class="menu"
+            left
+            text="Report Management">
+            <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
+              to="/crimes">Add New
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/allReport">Browse and Manage
+            </b-dropdown-item>
+          </b-dropdown>
+        </ul>
+      </div>
+    </div>
+    <b-button
+      style="margin: 50px 0 0 20%;"
+      to="/crimes">New Report</b-button>
     <b-table
+      :striped="true"
+      :outlined="true"
       :fields="col"
-      :items="dataobjct">
+      :items="dataobjct"
+      style="margin-left: 20%;">
       <template
-        slot="show_details"
+        slot="view_and_manage"
         slot-scope="row">
         <b-button
           v-model="row.detailsShowing"
@@ -14,7 +47,7 @@
           @click.native.stop
           @change="row.toggleDetails"
           @click.stop="row.toggleDetails">
-          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+          {{ row.detailsShowing ? 'Hide' : 'Show' }} actions
         </b-button>
       </template>
       <template
@@ -30,13 +63,13 @@
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>Nature code:</b></b-col>
+              class="text-sm-right"><b>Nature Code:</b></b-col>
             <b-col>{{ row.item.naturecode }}</b-col>
           </b-row>
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>Incident type:</b></b-col>
+              class="text-sm-right"><b>Incident Type:</b></b-col>
             <b-col>{{ row.item.incident_type_description }}</b-col>
           </b-row>
           <b-row class="mb-2">
@@ -66,7 +99,7 @@
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>Day Week:</b></b-col>
+              class="text-sm-right"><b>Day of the week:</b></b-col>
             <b-col>{{ row.item.day_week }}</b-col>
           </b-row>
           <b-row class="mb-2">
@@ -78,35 +111,40 @@
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>X:</b></b-col>
+              class="text-sm-right"><b>X Coordinate:</b></b-col>
             <b-col>{{ row.item.x }}</b-col>
           </b-row>
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>Y:</b></b-col>
+              class="text-sm-right"><b>Y Coordinate:</b></b-col>
             <b-col>{{ row.item.y }}</b-col>
           </b-row>
           <b-row class="mb-2">
             <b-col
               sm="3"
-              class="text-sm-right"><b>Xstreetname:</b></b-col>
+              class="text-sm-right"><b>Cross Street:</b></b-col>
             <b-col>{{ row.item.xstreetname }}</b-col>
           </b-row>
+          <br>
           <b-button
             size="sm"
-            @click="getCurentId(row.item.Compnos)">Delete</b-button>
+            to="/edit">Edit Report</b-button>
           <b-button
             size="sm"
-            @click="row.toggleDetails">Hide Details</b-button>
+            @click="getCurentId(row.item.Compnos)">Delete Report</b-button>
+          <b-button
+            size="sm"
+            @click="row.toggleDetails">Hide Actions</b-button>
         </b-card>
       </template>
     </b-table>
+    <br>
     <b-pagination
       :total-rows="100"
       :per-page="10"
       v-model="currentPage"
-      align="center"
+      style="margin-left: 45%;"
       @input="getPostData(currentPage)"
     />
     <br>
@@ -133,7 +171,7 @@ export default {
     try {
       console.log('GetReport')
       await this.$store.dispatch('GetAllreport', {
-        token: this.token,
+        token: this.token,v
       },
       console.log(token))
     } catch (e) {
@@ -146,13 +184,11 @@ export default {
   data () {
     return {
       currentPage: 1,
-      col: ["compnos","naturecode","main_crimecode","reptdistrict","reportingarea",
+      col: ["compnos","naturecode","main_crimecode","reptdistrict",
       "fromdate",
       "weapontype",
-      "year",
       "streetname",
-      "location",
-      'show_details'],
+      'view_and_manage'],
       loading: false,
       role: this.$store.state.authUser.data.role,
       token: this.$store.state.authUser.data.token,
@@ -194,3 +230,37 @@ export default {
 }
 
 </script>
+
+<style>
+
+.table {
+  margin:auto;
+  margin-left: 20%;
+  margin-top: 50px;
+}
+
+.table .table {
+  background-color: rgb(136, 166, 195);
+  padding: 25px;
+  border: 0px;
+}
+
+table.b-table {
+  float: center;
+  max-width: 70%;
+  border-radius: 5px;
+  background-color: rgb(136, 166, 195);
+}
+
+.card {
+  background: #2A3F54;
+}
+
+.text-sm-right {
+  color: white;
+}
+
+.col {
+  color: white;
+}
+</style>

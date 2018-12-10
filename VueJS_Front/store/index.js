@@ -173,6 +173,52 @@ export const actions = {
       }
     },
 
+    async edit({ commit }, {
+      compnos, token, naturecode,
+      incident_type_description,
+      main_crimecode, reptdistrict,
+      reportingarea, fromdate,
+      weapontype, shooting, domestic,
+      shift, year, month, day_week,
+      ucrpart, x, y, streetname,
+      xstreetname, location,
+    }) {
+        try {
+          axios.defaults.headers = {
+             'Content-Type': 'application/json',
+             'authorization': token
+          }
+        const { data } = await axios.put('/reports'+id, {
+          compnos,
+          token,
+          naturecode,
+          incident_type_description,
+          main_crimecode,
+          reptdistrict,
+          reportingarea,
+          fromdate,
+          weapontype,
+          shooting,
+          domestic,
+          shift,
+          year,
+          month,
+          day_week,
+          ucrpart,
+          x,
+          y,
+          streetname,
+          xstreetname,
+          location,
+        })
+      } catch (error) {
+          if (error.response && error.response.status === 403) {
+            throw new Error('Update failed')
+          }
+          throw error
+        }
+      },
+
     /*
     * fonction for get all count in pending
     * @param : token
@@ -236,7 +282,7 @@ async perMonth({ commit }, { year, token}) {
       axios.defaults.headers = {
         'Authorization': token
     }
-    const { data } = await axios.get('/reports?page='+page+'&per_page=10')
+    const { data } = await axios.get('/reports?page='+page+'&per_page=25')
     commit('SET_AllReport',data)
     return data
   } catch (error) {
