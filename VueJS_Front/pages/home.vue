@@ -26,7 +26,7 @@
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
-              to="/allReport">Browse reports
+              to="/allReport">Browse all reports
             </b-dropdown-item>
           </b-dropdown>
         </ul>
@@ -84,18 +84,18 @@ middleware : 'auth',
 
 .menu {
   margin-top:40px;
-  padding-right:12px;
+  padding-right:0;
   display: block;
   width: 100%;
   text-align: center;
 }
 
 .dropdown-menu.show {
-  margin-left: 12px;
+  width: 100%;
 }
 
 .menu-item {
-  padding-right:25px;
+  padding-right:0px;
   display: block;
   width: 100%;
 }
@@ -237,6 +237,12 @@ middleware : 'auth',
   .button
   {
     margin-top: 50px;
+  }
+
+  .btn-group > .btn:first-child {
+    height: 50px;
+    width: 100%;
+    border-radius: 0;
   }
 
   .esri-ui-manual-container>.esri-component {
