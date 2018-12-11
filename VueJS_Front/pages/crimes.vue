@@ -112,10 +112,12 @@
               <p>x: <input
                 v-model="formX"
                 type="number"
+                step="0.0001"
                 required></p>
               <p>y: <input
                 v-model="formY"
                 type="number"
+                step="0.0001"
                 required></p>
               <p>street name: <input
                 v-model="streetname"

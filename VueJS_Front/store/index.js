@@ -188,7 +188,7 @@ export const actions = {
              'Content-Type': 'application/json',
              'authorization': token
           }
-        const { data } = await axios.put('/reports'+id, {
+        const { data } = await axios.put('/reports/'+compnos, {
           compnos,
           token,
           naturecode,
@@ -211,6 +211,7 @@ export const actions = {
           xstreetname,
           location,
         })
+      console.log("success")
       } catch (error) {
           if (error.response && error.response.status === 403) {
             throw new Error('Update failed')
@@ -314,10 +315,33 @@ async perMonth({ commit }, { year, token}) {
   },
 
   async GetCsv({token}){
-    axios.default.headers = {
-      'Authorization': token
+    // axios.default.headers = {
+    //   'Authorization': token
+    // }
+    // await axios.get('http://192.168.34.28:8080/exportToCsv')
+    // let blob = new Blob([response.data], { type: 'application/pdf' }),
+    //     url = window.URL.createObjectURL(blob)
+    //
+    //   window.open(url)
+    try {
+      axios({
+          url: 'http://192.168.34.28:8080/exportToCsv',
+          method: 'GET',
+          responseType: 'blob',
+        }).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'users.csv');
+          document.body.appendChild(link);
+          link.click();
+        });
+    } catch (error) {
+      if (error.response) {
+        throw new Error('Activation error')
+      }
+      throw error
     }
-    await axios.get('/export')
   },
 
   async validate({commit},{token, id})

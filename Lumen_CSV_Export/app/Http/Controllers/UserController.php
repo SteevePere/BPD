@@ -31,8 +31,12 @@ class UserController extends Controller {
 			$table = User::all();
 			$filename = "Users.csv";
 			$handle = fopen($filename, 'w');
+
 			$headers = array(
 				'Content-Type' => 'text/csv',
+				'Access-Control-Allow-Origin' => '*',
+				'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+				'Access-Control-Allow-Headers' => 'Content-Type, Accept, Authorization, X-Requested-With, Application',
 			);
 
 			fputcsv($handle, array('Id', 'Position', 'First Name', 'Last Name', 'Gender', 'Birth Date', 'Hire Date', 'E-mail', 'Login', 'Account Status'));

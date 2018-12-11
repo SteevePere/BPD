@@ -1,148 +1,318 @@
 <template>
   <div>
     <Navbar/>
-    <table
-      class="table table-striped"
-      style="text-align:center">
-      <tbody>
-        <tr>
-          <td colspan="1">
-            <form @submit.prevent="edit()">
-              <p>compnos: <input
-                v-model="formCompnos"
-                length="10"
-                type="number"></p>
-              <p>nature code: <input
-                v-model="formNature"
-                max="10"
-                type="text"
-                name="crime"
-                required></p>
-              <p>Incident : <input
-                v-model="incident"
-                type="text"
-                name="incident"
-                max="200"
-                required></p>
-              <p>main crimecode: <input
-                v-model="crimecode"
-                type="text"
-                name="crime"
-                max="15"
-                required></p>
-              <p>rept district: <input
-                v-model="district"
-                type="text"
-                name="district"
-                max="100"
-                required></p>
-              <p>reporting area: <input
-                v-model="reporting"
-                type="text"
-                required></p>
-              <p>fromdate: <input
-                v-model="fromdate"
-                type="datetime"
-                required></p>
-              <label for="weapon">weapon type:</label>
-              <select
-                v-model="weapontype"
-                required>
-                <option
-                  value=""
-                  disabled/>
-                <option
-                  v-for="option in optionWeapon"
-                  :key="option.id"
-                  :value="option.id">{{ option.label }}</option>
-              </select>
-              <p>shooting: <input
-                v-model="shooting"
-                type="checkbox"></p>
-              <p>domestic: <input
-                v-model="domestic"
-                type="checkbox"></p>
-              <label for="shift">Shift:</label>
-              <select
-                v-model="shift"
-                required>
-                <option
-                  value=""
-                  disabled/>
-                <option
-                  v-for="option in optionShift"
-                  :key="option.id"
-                  :value="option.id">{{ option.label }}</option>
-              </select>
-              <p>year: <input
-                v-model="year"
-                type="number"
-                max="9999"
-                required></p>
-              <p>month: <input
-                v-model="month"
-                type="number"
-                max="12"
-                required></p>
-
-              <label for="day_week">day week:</label>
-              <select
-                v-model="day_week"
-                required>
-                <option
-                  value=""
-                  disabled/>
-                <option
-                  v-for="option in options"
-                  :key="option.id"
-                  :value="option.id">{{ option.label }}</option>
-              </select>
-              <label for="ucrpart">ucrpart:</label>
-              <select
-                v-model="ucrpart"
-                required>
-                <option
-                  value=""
-                  disabled/>
-                <option
-                  v-for="option in optionUcrpart"
-                  :key="option.id"
-                  :value="option.id">{{ option.label }}</option>
-              </select>
-              <p>x: <input
-                v-model="formX"
-                type="number"
-                required></p>
-              <p>y: <input
-                v-model="formY"
-                type="number"
-                required></p>
-              <p>street name: <input
-                v-model="streetname"
-                type="text"
-                required></p>
-              <p>xstreet name: <input
-                v-model="xstreetname"
-                type="text"
-                required></p>
-              <p>location: <input
-                v-model="location"
-                type="text"
-                required></p>
-              <button
-                class="btn btn-primary"
-                type="submit"
-                value="Submit"
-                name="button">Save Report</button>
-              <button
-                class="btn btn-danger"
-                type="button"
-                name="button">Cancel</button>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <b-button
+            to="/profil"
+            title="My Profile"
+            class="profil">
+            <img
+              style="max-height: 25px;max-width: 25px;padding-right: 10px;"
+              src="~/assets/user-solid.svg">{{ $store.state.authUser.data.first_name }} {{ $store.state.authUser.data.last_name }}</b-button>
+          <b-dropdown
+            class="menu"
+            left
+            text="Report Management">
+            <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
+              to="/crimes">Add New
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/allReport">Browse and Manage
+            </b-dropdown-item>
+          </b-dropdown>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="col-md-9"
+      style="margin-left: 360px; margin-top: 50px; max-width: 70%;">
+      <div
+        class="card"
+        style="margin-bottom: 50px;">
+        <div
+          class="card-body"
+          style="margin-left: 30px;">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="margin-top: 50px; text-align: center; ">
+                <h4
+                  style="color: white;"
+                >Edit Report {{ this.$route.params.compnos }}</h4>
+                <br>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <form @submit.prevent="edit()">
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Compnos</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="formCompnos"
+                      class="form-control here"
+                      length="10"
+                      type="number"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Nature Code</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="formNature"
+                      class="form-control here"
+                      max="10"
+                      type="text"
+                      name="crime"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Incident Type</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="incident"
+                      class="form-control here"
+                      type="text"
+                      name="incident"
+                      max="200"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Crime Code</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="crimecode"
+                      class="form-control here"
+                      type="text"
+                      name="crime"
+                      max="15"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">District</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="district"
+                      class="form-control here"
+                      type="text"
+                      name="district"
+                      max="100"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Reporting Area</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="reporting"
+                      class="form-control here"
+                      type="text"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Date</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="fromdate"
+                      class="form-control here"
+                      type="datetime"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Weapon Type</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="weapontype"
+                      class="form-control here">
+                      <option
+                        v-for="option in optionWeapon"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Shooting</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="shooting"
+                      class="form-check-input"
+                      style="margin-left: 0px;"
+                      type="checkbox"></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Domestic Violence</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="domestic"
+                      class="form-check-input"
+                      style="margin-left: 0px;"
+                      type="checkbox"></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Shift</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="shift"
+                      class="form-control here">
+                      <option
+                        v-for="option in optionShift"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Year</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="year"
+                      class="form-control here"
+                      type="number"
+                      max="9999"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Month</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="month"
+                      class="form-control here"
+                      type="number"
+                      max="12"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Day of the Week</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="day_week"
+                      class="form-control here"
+                      required>
+                      <option
+                        v-for="option in options"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Universal Crime Reporting Part Number</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="ucrpart"
+                      class="form-control here"
+                      required>
+                      <option
+                        v-for="option in optionUcrpart"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">X Coordinate</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="formX"
+                      class="form-control here"
+                      type="number"
+                      step="0.0001"></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Y Coordinate</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="formY"
+                      class="form-control here"
+                      type="number"
+                      step="0.0001"></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Street Name</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="streetname"
+                      class="form-control here"
+                      type="text"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Cross Street Name</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="xstreetname"
+                      class="form-control here"
+                      type="text"
+                      required></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Location</label>
+                  <div class="col-8">
+                    <p><input
+                      v-model="location"
+                      class="form-control here"
+                      type="text"
+                      required></p>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  value="Submit"
+                  to="/allReport"
+                  name="button">Save Changes</button>
+                <b-button
+                  to="/allReport"
+                  title="My Profile"
+                  class="btn btn-danger">Cancel</b-button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -158,26 +328,26 @@ export default {
       role: this.$store.state.authUser.data.role,
       token: this.$store.state.authUser.data.token,
       formError: null,
-      formNature: '',
-      crimecode: '',
-      incident:'',
-      district:'',
-      reporting:'',
-      fromdate:'',
-      weapontype:'',
-      shooting:'False',
-      domestic:'False',
-      shift:'',
-      year:'',
-      month:'',
-      day_week:'',
-      ucrpart:'',
-      formX:'',
-      formY:'',
-      streetname:'',
-      xstreetname:'',
-      formCompnos:0,
-      location:'',
+      formNature: this.$route.params.formNature,
+      crimecode: this.$route.params.crimecode,
+      incident:this.$route.params.incident,
+      district:this.$route.params.district,
+      reporting:this.$route.params.reporting,
+      fromdate:this.$route.params.fromdate,
+      weapontype:this.$route.params.weapontype,
+      shooting:false,
+      domestic:false,
+      shift:this.$route.params.shift,
+      year:this.$route.params.year,
+      month:this.$route.params.month,
+      day_week:this.$route.params.day_week,
+      ucrpart:this.$route.params.ucrpart,
+      formX:this.$route.params.formX,
+      formY:this.$route.params.formY,
+      streetname:this.$route.params.streetname,
+      xstreetname:this.$route.params.xstreetname,
+      formCompnos:this.$route.params.compnos,
+      location:this.$route.params.location,
       options: [ {id: 'Monday', label: 'Monday'}, {id: 'Tuesday', label: 'Tuesday'}, {id: 'Wednesday', label: 'Wednesday'},
       {id: 'Thursday', label: 'Thursday'}, {id: 'Friday', label: 'Friday'}, {id: 'Saturday', label: 'Saturday'},{id: 'Sunday', label: 'Sunday'} ],
       optionWeapon: [ {id: 'Unarmed', label: 'Unarmed'}, {id: 'Knife', label: 'Knife'},{id: 'Personal Weapon', label: 'Personal Weapon (hand, foot, etc)'}, {id: 'Firearm', label: 'Firearm'},
@@ -191,7 +361,6 @@ export default {
       async edit() {
         try {
           await this.$store.dispatch('edit', {
-            id: id,
             compnos: this.formCompnos,
             token: this.token,
             naturecode: this.formNature,
@@ -214,6 +383,7 @@ export default {
             xstreetname:this.xstreetname,
             location: this.location
           })
+          this.$router.push("/allReport");
         } catch (e) {
           this.formError = e.message
         }
@@ -223,3 +393,11 @@ export default {
 }
 
 </script>
+
+<style>
+
+.col-form-label {
+  color: white;
+}
+
+</style>

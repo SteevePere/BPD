@@ -29,22 +29,29 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div class="card">
+      <div
+        class="card"
+        style="margin-bottom: 50px; background: #2A3F54;">
         <div class="card-body">
           <div class="row">
             <div class="col-md-12">
-              <h4>Your Profile</h4>
-              <br>
-              <div class="profile-header-container">
+              <div
+                class="profile-header-container"
+                style="float:left;">
                 <div class="profile-header-img">
                   <img
                     class="img-circle img"
-                    src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120">
+                    style="height: 150px; width: 120px;"
+                    src="../assets/Profile.jpeg">
                 </div>
               </div>
-              <hr>
+              <div style="float:left; margin-top: 50px; margin-left: 20px;">
+                <h4>Your Profile</h4>
+              </div>
             </div>
           </div>
+          <br>
+          <br>
           <div class="row">
             <div class="col-md-12">
               <form>

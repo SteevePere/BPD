@@ -45,21 +45,15 @@
           </a>
         </li>
       </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="text"
-          placeholder="Search"
-          aria-label="Search">
-        <button
-          class="btn btn-outline-success my-2 my-sm-0"
-          type="submit">Search</button>
-      </form> -->
-      <button
+      <b-button
         class="user"
+        title="Sign Out"
+        style="margin-right: 10px; background: transparent;"
         @click="logout">
-        <img src="~/assets/icons8-enter-26.png">
-      </button>
+        <img
+          src="~/assets/logout.png"
+          style="height: 30px;">
+      </b-button>
     </div>
   </nav>
 </template>

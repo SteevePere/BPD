@@ -28,31 +28,38 @@
         </ul>
       </div>
     </div>
-    <div class="table">
-      <b-table
-        :striped="true"
-        :outlined="true"
-        :fields="col"
-        :items="dataobjct"
-        :busy.sync="isBusy"
-        :ref="pending_users">
-        <template
-          slot="Actions"
-          slot-scope="row">
-          <b-button
-            size="sm"
-            @click="activate(row.item.id)">Activate</b-button>
-        </template>
-      </b-table>
-      <br>
-      <button
-        type="button"
-        name="button"
-        style="margin-left:43%;"
-        @click="getCSV">ExportCSV</button>
-      <p
-        v-if="formError"
-        class="error">{{ formError }}</p>
+    <div class="content-admin">
+      <div style="margin-top: 50px; text-align: center; ">
+        <h4
+          style="color: white;"
+        >Accounts currently pending :</h4>
+      </div>
+      <div class="table">
+        <b-table
+          :striped="true"
+          :outlined="true"
+          :fields="col"
+          :items="dataobjct"
+          :busy.sync="isBusy"
+          :ref="pending_users">
+          <template
+            slot="Actions"
+            slot-scope="row">
+            <b-button
+              size="sm"
+              @click="activate(row.item.id)">Activate</b-button>
+          </template>
+        </b-table>
+        <br>
+        <b-button
+          type="button"
+          name="button"
+          style="margin-left: 42%;"
+          @click="getCSV">Export all users to CSV file</b-button>
+        <p
+          v-if="formError"
+          class="error">{{ formError }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -81,7 +88,8 @@ export default {
       dataobjct: this.$store.state.Pending.data,
       formError: null,
       isBusy: false,
-      formSuccess: null
+      formSuccess: null,
+      pending_users: null
     }
   },
   middleware : 'auth',
@@ -116,14 +124,15 @@ export default {
 
 <style>
 
-.content {
-
+.content-admin {
+  margin-left: 185px;
 }
 
 .table {
   margin:auto;
-  margin-left: 185px;
+  /* margin-left: 175px; */
   margin-top: 50px;
+  width: 100%;
 }
 
 .table .table {
