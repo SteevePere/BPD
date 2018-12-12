@@ -14,7 +14,7 @@
       <label for="arrests">Warrant Arrests</label>
       <input
         id="gather"
-        type="radio"
+        type="checkbox"
         name="crime">
       <label for="gather">Other</label>
       <p
@@ -63,6 +63,7 @@
 
         var view = new MapView({
           container: "viewDiv",
+
           map: map,
           center: ['-71.04','42.36'],
           zoom: 13
@@ -91,24 +92,129 @@
 
         view.graphics.add(pointGraphic);
 
+        var newItem = {
+            'token': this.token
+        };
+        localStorage.setItem('itemsArray', JSON.stringify(newItem));
 
         document.getElementById("controls").addEventListener("click", function(event) {
-          let valueClicked;
-          if (event.target.id === "vandalism") {
-            console.log('vandalism')
-            valueClicked = vandalism;
-          } else if (event.target.id === "arrests") {
-            console.log('arrests')
-            valueClicked = arrests;
-          } else if (event.target.id === "gather") {
-            valueClicked = gather;
-            console.log('gather')
-          }
-          if(valueClicked){
-            console.log('of')
-          }
+            var local = event.view.localStorage.itemsArray
+            var datai = JSON.parse(local);
+            const token = datai.token
 
-        })
+            if (event.target.id === "vandalism") {
+              //console.log('vandalism');
+              (async () => {
+                  const data = await fetch('/geoloc/vandalism', {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': token
+                  },
+                });
+                const content = await data.json();
+                var point = new Point({
+                  longitude: '-71.05352956',
+                  latitude: '42.35950634'
+                });
+                var markerSymbol = new SimpleMarkerSymbol({
+                  color: [0, 5, 0],
+                  outline: {
+                    color: [255, 255, 255],
+                    width: 1
+                  }
+                });
+
+                // Create a graphic and add the geometry and symbol to it
+                var pointGraphic = new Graphic({
+                  geometry: point,
+                  symbol: markerSymbol
+                });
+
+                 view.graphics.add(pointGraphic);
+                // console.log(content);
+              })();
+            } else if (event.target.id === "arrests") {
+
+              //console.log('arrests')
+              (async () => {
+                  const data = await fetch('/geoloc/arrests', {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': token
+                  },
+                });
+                const content = await data.json();
+              })();
+            } else if (event.target.id === "gather") {
+
+              //console.log('gather')
+              (async () => {
+                  const data = await fetch('/geoloc/MVAcc', {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': token
+                  }
+
+                }).then((response) => {
+                  return response.json();
+                }).then(data => {
+                  console.log(data)
+                  data.data.forEach(function(element) {
+                    const mydata = JSON.stringify(element)
+                    const mlydata = mydata.substr(0, mydata.indexOf('}'))
+                    const myresult = mlydata.substring(13)
+                    const lat = myresult.substr(1,myresult.indexOf(','))
+                    const titilat = (lat.length-1)
+                    const lng = myresult.split(",")[1]
+                    const longi = lng.replace(')','')
+                    var point = new Point({
+                      longitude: longi,
+                      latitude: lat
+                    });
+                    var markerSymbol = new SimpleMarkerSymbol({
+                      color: [255, 0.5, 0, 0.45],
+                      outline: {
+                        color: [255, 0.5, 0,0],
+                        width: 1
+                      }
+                    });
+
+                    // Create a graphic and add the geometry and symbol to it
+                    var pointGraphic = new Graphic({
+                      geometry: point,
+                      symbol: markerSymbol
+                    });
+
+                    view.graphics.add(pointGraphic);
+                  });
+                })
+                .catch(function (error) {
+                    console.log(error.response);
+                });
+
+                /*var point = new Point({
+                  longitude: '-71.05352956',
+                  latitude: '42.35950634'
+                });
+                var markerSymbol = new SimpleMarkerSymbol({
+                  color: [212, 119, 40],
+                  outline: {
+                    color: [255, 255, 255],
+                    width: 1
+                  }
+                });
+
+                // Create a graphic and add the geometry and symbol to it
+                var pointGraphic = new Graphic({
+                  geometry: point,
+                  symbol: markerSymbol
+                });
+
+                view.graphics.add(pointGraphic);
+                */
+              })();
+            }
+          })
 
 
 
@@ -119,9 +225,6 @@
       this.GetAllreport()
     },
     methods: {
-       titi(){
-        console.log("oko")
-      },
       async GetAllreport() {
         console.log('GetReport')
         try {

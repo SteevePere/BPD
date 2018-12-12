@@ -89,31 +89,40 @@ export const actions = {
   * @param : first_name, last_name, gender, email
   *          login, birth_date, role, password, token
   */
-  async inscription({ token,first_name, last_name,
+  async inscription({ commit },{ token, first_name, last_name,
                       gender, email, login,
-                      birth_date, hire_date, role,  password}) {
-    try {
-      axios.defaults.headers = {
-         'Content-Type': 'application/x-www-form-urlencoded',
-         'authorization': token
-      }
-      const { data } = await axios.post('http://172.20.10.2:8080/users', {
-        first_name,
-        last_name,
-        gender,
-        email,
-        login,
-        birth_date,
-        hire_date,
-        role,
-        password
-       })
-    } catch (error) {
-      if (error.response && error.response.status === 401 ) {
-        throw new Error('Echec de l inscription')
-      }
-      throw error
+                      birth_date, hire_date, role, password}) {
+
+
+
+    axios.defaults.headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
     }
+
+    await axios({
+      method: 'post',
+      url: 'http://172.16.31.166:8080/user',
+      params: {
+        first_name: first_name,
+        last_name: last_name,
+        gender: gender,
+        email: email,
+        birth_date: birth_date,
+        hire_date: hire_date,
+        role: role,
+        login: login,
+        password: sha1(password)
+      },
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error.response);
+    });
   },
 
   /*

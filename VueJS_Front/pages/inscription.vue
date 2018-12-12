@@ -225,6 +225,7 @@
   export default {
     data() {
       return {
+        token: this.$store.state.authUser.data.token,
         errors: [],
         formFirstName: '',
         formLastName: '',
@@ -242,6 +243,7 @@
         options: [ {id: 'ag', label: 'Agent'}, {id: 'ch', label: 'Chief'}, {id: 'de', label: 'Detective'} ]
       }
     },
+  middleware : 'auth',
   methods : {
     async inscription() {
       console.log('inscription')
@@ -277,6 +279,7 @@
 
           try {
             await this.$store.dispatch('inscription', {
+              token: this.token,
               first_name: this.formFirstName,
               last_name: this.formLastName,
               gender: this.formGenre,

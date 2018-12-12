@@ -6,7 +6,7 @@ const Mongoose = require('mongoose');
 const routesPlugin = require('./routes/routes');
 //Database URLs
 const MongoDBUrl = 'mongodb://localhost:27017/crime_incident_reports';
-const MySQLURL = 'mysql://root:Makaveli@localhost/users';
+const MySQLURL = 'mysql://root:Makaveli@172.16.31.166/users';
 
 const launchServer = async function() {
 
@@ -17,7 +17,7 @@ const launchServer = async function() {
 
 		const server = new Hapi.Server({
 		  port: process.env.PORT || 8000,
-		  host: process.env.HOST || "192.168.34.28"
+		  host: process.env.HOST || "0.0.0.0"
 		});
 
     await server.register([{
