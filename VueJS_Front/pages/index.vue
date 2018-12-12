@@ -16,7 +16,8 @@
           ><input
             v-model="formUsername"
             type="text"
-            style="width: 275px; margin-top:30px;"
+            class="form-control here"
+            style="width: 275px; margin-top:30px; margin-left:auto; margin-right: auto;"
             placeholder="Login"
             name="username"
             required="true"></p>
@@ -25,7 +26,8 @@
           ><input
             v-model="formPassword"
             type="password"
-            style="width: 275px;"
+            class="form-control here"
+            style="width: 275px; margin:auto;"
             placeholder="Password"
             name="password"
             required="true"></p>
@@ -33,7 +35,7 @@
         <button
           type="submit"
           class="btn btn-secondary"
-          style="float: center; margin-top: 8px; width: 175px;">Sign In</button>
+          style="float: center; margin-top: 20px; width: 175px;">Sign In</button>
         <p
           v-if="formError"
           class="error">{{ formError }}</p>

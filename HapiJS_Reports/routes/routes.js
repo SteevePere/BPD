@@ -18,7 +18,7 @@ exports.plugin = {
 		        validate: {
 		            query: {
 	                page: Joi.number().integer().min(1).default(1),
-									per_page : Joi.number().integer().min(1).max(500).default(25)
+									per_page : Joi.number().integer().min(1).max(500).default(15)
 		            }
 		        }
     		}

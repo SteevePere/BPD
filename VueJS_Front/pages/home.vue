@@ -71,15 +71,15 @@ middleware : 'auth',
   margin-top:0px;
   border-radius: 0;
   padding-right: 10%;
-  padding-top: 12px;
+  padding-top: 35px;
   display: block;
   background: #2A3F54;
   border-color: #2A3F54;
-  height: 50px;
+  height: 100px;
 }
 
 .menu {
-  margin-top:40px;
+  /* margin-top:40px; */
   padding-right:0;
   display: block;
   width: 100%;
@@ -88,6 +88,11 @@ middleware : 'auth',
 
 .dropdown-menu.show {
   width: 100%;
+  left:5px;
+  margin-top:0;
+  margin-left: 5px;
+
+  border-radius:0;
 }
 
 .menu-item {
@@ -97,6 +102,7 @@ middleware : 'auth',
 }
   #wrapper {
       padding-left: 0;
+      margin-top:76px;
       -webkit-transition: all 0.5s ease;
       -moz-transition: all 0.5s ease;
       -o-transition: all 0.5s ease;
@@ -111,9 +117,11 @@ middleware : 'auth',
       z-index: 1000;
       position: fixed;
       left: 0;
+      top:26px;
       width: 0;
       height: 100%;
       margin-right: -250px;
+      margin-top:50px;
       overflow-y: auto;
       background: rgb(33, 37, 41);
       -webkit-transition: all 0.5s ease;

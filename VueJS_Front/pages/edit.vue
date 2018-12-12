@@ -30,13 +30,13 @@
     </div>
     <div
       class="col-md-9"
-      style="margin-left: 360px; margin-top: 50px; max-width: 70%;">
+      style="margin-left: 360px; margin-top: 140px; max-width: 70%;">
       <div
         class="card"
         style="margin-bottom: 50px;">
         <div
           class="card-body"
-          style="margin-left: 30px;">
+          style="margin-left: 30px; margin-right: 30px;">
           <div class="row">
             <div class="col-md-12">
               <div style="margin-top: 50px; text-align: center; ">
@@ -129,17 +129,6 @@
                 </div>
                 <div class="form-group row">
                   <label
-                    class="col-4 col-form-label">Date</label>
-                  <div class="col-8">
-                    <p><input
-                      v-model="fromdate"
-                      class="form-control here"
-                      type="datetime"
-                      required></p>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label
                     class="col-4 col-form-label">Weapon Type</label>
                   <div class="col-8">
                     <p><select
@@ -176,16 +165,13 @@
                 </div>
                 <div class="form-group row">
                   <label
-                    class="col-4 col-form-label">Shift</label>
+                    class="col-4 col-form-label">Date</label>
                   <div class="col-8">
-                    <p><select
-                      v-model="shift"
-                      class="form-control here">
-                      <option
-                        v-for="option in optionShift"
-                        :key="option.id"
-                        :value="option.id">{{ option.label }}</option>
-                    </select></p>
+                    <p><input
+                      v-model="fromdate"
+                      class="form-control here"
+                      type="datetime"
+                      required></p>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -222,6 +208,20 @@
                       required>
                       <option
                         v-for="option in options"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Shift</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="shift"
+                      class="form-control here">
+                      <option
+                        v-for="option in optionShift"
                         :key="option.id"
                         :value="option.id">{{ option.label }}</option>
                     </select></p>
@@ -297,6 +297,7 @@
                       required></p>
                   </div>
                 </div>
+                <br>
                 <button
                   class="btn btn-primary"
                   type="submit"

@@ -1,230 +1,241 @@
 <template>
-  <div class="container">
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td colspan="1">
-            <form
-              class="well form-horizontal"
-              @submit.prevent="inscription">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">First Name</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div
-                      class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-user"/>
-                      </span>
-                      <input
-                        id="fullName"
-                        v-model="formFirstName"
-                        name="fullName"
-                        placeholder="Full Name"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="text"></div>
+  <div>
+    <Navbar/>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <b-button
+            to="/profil"
+            title="My Profile"
+            class="profil">
+            <img
+              style="max-height: 25px;max-width: 25px;padding-right: 10px;"
+              src="~/assets/user-solid.svg">{{ $store.state.authUser.data.first_name }} {{ $store.state.authUser.data.last_name }}</b-button>
+          <b-dropdown
+            class="menu"
+            left
+            text="Report Management">
+            <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
+              to="/crimes">Add New
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/allReport">Browse and Manage
+            </b-dropdown-item>
+          </b-dropdown>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="col-md-9"
+      style="margin-left: 360px; margin-top: 140px; max-width: 70%;">
+      <div
+        class="card"
+        style="margin-bottom: 50px; background: rgb(42, 63, 84);">
+        <div
+          class="card-body"
+          style="margin-left: 30px; margin-right: 30px;">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="margin-top: 50px; text-align: center; ">
+                <h4
+                  style="color: white;"
+                >New user</h4>
+                <br>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                class="well form-horizontal"
+                @submit.prevent="inscription">
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">First Name</label>
+                  <div class="col-8">
+                    <p><input
+                      id="fullName"
+                      v-model="formFirstName"
+                      name="fullName"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="text"></p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Last Name</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-home"/>
-                      </span>
-                      <input
-                        id="Last_Name"
-                        v-model="formLastName"
-                        name="last_nameName"
-                        placeholder="Last Name"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="text"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Last Name</label>
+                  <div class="col-8">
+                    <p><input
+                      id="Last_Name"
+                      v-model="formLastName"
+                      name="last_nameName"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="text"></p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Role</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span
-                        class="input-group-addon"
-                        style="max-width: 100%;">
-                        <i class="glyphicon glyphicon-list"/>
-                      </span>
-                      <select
-                        v-model="formRole"
-                        class="selectpicker form-control">
-                        <option
-                          v-for="option in options"
-                          :key="option.id"
-                          :value="option.id">{{ option.label }}</option>
-                      </select>
-                    </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Role</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="formRole"
+                      class="selectpicker form-control">
+                      <option
+                        v-for="option in options"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                      <option
+                        v-if="role === 'chief'"
+                        value="chief">Chief</option>
+                    </select></p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Gender</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span
-                        class="input-group-addon"
-                        style="max-width: 100%;">
-                        <i class="glyphicon glyphicon-list"/>
-                      </span>
-                      <select
-                        v-model="formGenre"
-                        class="selectpicker form-control">
-                        <option
-                          v-for="option in GenreOption"
-                          :key="option.id"
-                          :value="option.id">{{ option.label }}</option>
-                      </select>
-                    </div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Gender</label>
+                  <div class="col-8">
+                    <p><select
+                      v-model="formGenre"
+                      class="selectpicker form-control">
+                      <option
+                        v-for="option in GenreOption"
+                        :key="option.id"
+                        :value="option.id">{{ option.label }}</option>
+                    </select></p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Birth Date</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-home"/>
-                      </span>
-                      <input
-                        id="birth_date"
-                        v-model="formdate"
-                        name="birth_date"
-                        placeholder="Birth date"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="date"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Birth Date</label>
+                  <div class="col-8">
+                    <p><input
+                      id="birth_date"
+                      v-model="formdate"
+                      name="birth_date"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="date"></p>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Hire Date</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-home"/>
-                      </span>
-                      <input
-                        id="hire_date"
-                        v-model="formHire"
-                        name="hire_date"
-                        placeholder="Hire date"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="date"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Hire Date</label>
+                  <div class="col-8">
+                    <p><input
+                      id="hire_date"
+                      v-model="formHire"
+                      name="hire_date"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="date"></p>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Login</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-home"/>
-                      </span>
-                      <input
-                        id="login"
-                        v-model="formLogin"
-                        name="login"
-                        placeholder="Login"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="text"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Login</label>
+                  <div class="col-8">
+                    <p><input
+                      id="login"
+                      v-model="formLogin"
+                      name="login"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="text"></p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Email</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-envelope"/>
-                      </span>
-                      <input
-                        id="email"
-                        v-model="formEmail"
-                        name="email"
-                        placeholder="Email"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="text"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Email</label>
+                  <div class="col-8">
+                    <p><input
+                      id="email"
+                      v-model="formEmail"
+                      name="email"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="text"></p>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Password</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-envelope"/>
-                      </span>
-                      <input
-                        id="pass"
-                        v-model="formPassword"
-                        name="password"
-                        placeholder="Password"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="password"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Password</label>
+                  <div class="col-8">
+                    <p><input
+                      id="pass"
+                      v-model="formPassword"
+                      name="password"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="password"></p>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Confirm Password</label>
-                  <div class="col-md-8 inputGroupContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-envelope"/>
-                      </span>
-                      <input
-                        id="passConf"
-                        v-model="formPasswordConf"
-                        name="passwordConf"
-                        placeholder="Confirm Password"
-                        class="form-control"
-                        required="true"
-                        value=""
-                        type="password"></div>
+                <div class="form-group row">
+                  <label
+                    class="col-4 col-form-label">Confirm Password</label>
+                  <div class="col-8">
+                    <p><input
+                      id="passConf"
+                      v-model="formPasswordConf"
+                      name="passwordConf"
+                      class="form-control"
+                      required="true"
+                      value=""
+                      type="password"></p>
                   </div>
                 </div>
-              </fieldset>
-              <button
-                type="submit"
-                class="btn btn-primary"
-                value="Submit">Inscription</button>
-              <p
-                v-if="formError"
-                class="error">{{ formError }}</p>
-
-              <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                  <li
-                    v-for="error in errors"
-                    :key="error.formError">{{ error }}</li>
-                </ul>
-              </p>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <br>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  value="Submit"
+                  to="/home"
+                  name="button">Save User</button>
+                <b-button
+                  to="/home"
+                  class="btn btn-danger">Cancel</b-button>
+                <p
+                  v-if="formError"
+                  class="error">{{ formError }}</p>
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li
+                      v-for="error in errors"
+                      :key="error.formError">{{ error }}</li>
+                  </ul>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
-  export default {
+  import Navbar from '~/components/Navbar'
+	export default {
+    components: {
+      Navbar
+    },
     data() {
       return {
+        role: this.$store.state.authUser.data.role,
         token: this.$store.state.authUser.data.token,
         errors: [],
         formFirstName: '',
@@ -239,8 +250,8 @@
         formHire: '',
         formError:null,
         formResult: null,
-        GenreOption: [{id: 'M', label: 'Homme'}, {id: 'F', label: 'Femme'} ],
-        options: [ {id: 'ag', label: 'Agent'}, {id: 'ch', label: 'Chief'}, {id: 'de', label: 'Detective'} ]
+        GenreOption: [{id: 'M', label: 'Male'}, {id: 'F', label: 'Female'} ],
+        options: [ {id: 'agent', label: 'Agent'}, {id: 'detective', label: 'Detective'} ]
       }
     },
   middleware : 'auth',
@@ -276,8 +287,7 @@
         this.errors.push('Error Password !');
       }
       else {
-
-          try {
+           try {
             await this.$store.dispatch('inscription', {
               token: this.token,
               first_name: this.formFirstName,
@@ -298,3 +308,11 @@
   }
 }
 </script>
+
+<style>
+
+.col-4 {
+  color:white;
+}
+
+</style>

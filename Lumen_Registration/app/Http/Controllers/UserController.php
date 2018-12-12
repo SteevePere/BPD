@@ -48,10 +48,11 @@ class UserController extends Controller {
 			$birthdate = $request->input('birth_date');
 			$hiredate = $request->input('hire_date');
 			$email = $request->input('email');
-			$login = $request->header('login');
-	    $password = $request->header('password');
+			$login = $request->input('login');
+	    $password = $request->input('password');
 			$token = $hasher->make($current_time);
 			$createdby = $current_user;
+			$status = "OFF";
 
 	    $save = User::create([
 				'role'=> $role,
@@ -64,6 +65,7 @@ class UserController extends Controller {
 				'login'=> $login,
         'password'=> $password,
 				'token'=> $token,
+				'status'=>$status,
 				'created_by' => $createdby,
 	    ]);
 	    $res['status'] = true;

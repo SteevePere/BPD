@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="content-admin">
-      <div style="margin-top: 50px; text-align: center; ">
+      <div style="margin-top: 140px; text-align: center; ">
         <h4
           style="color: white;"
         >Accounts currently pending :</h4>
@@ -54,7 +54,7 @@
         <b-button
           type="button"
           name="button"
-          style="margin-left: 42%;"
+          style="margin-left: 43%;"
           @click="getCSV">Export all users to CSV file</b-button>
         <p
           v-if="formError"
@@ -113,9 +113,9 @@ export default {
       return this.$store.dispatch('validate',{
         token: this.token,
         id: id
-      }).then((res) => {
-        this.dataobjct = res.data
-        console.log(res)
+      }).then(() => {
+        this.dataobjct = this.$store.state.Pending.data
+        this.vuetable.setData(this.dataobjct);
       })
     }
   }
@@ -144,7 +144,7 @@ export default {
 table.b-table {
   float: center;
   max-width: 70%;
-  border-radius: 5px;
+  border-radius: 0;
 }
 
 </style>

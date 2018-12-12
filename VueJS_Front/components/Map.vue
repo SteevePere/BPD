@@ -5,8 +5,7 @@
       <input
         id="vandalism"
         type="radio"
-        name="crime"
-        checked> <label for="vandalism">Vandalism</label>
+        name="crime"> <label for="vandalism">Vandalism</label>
       <input
         id="arrests"
         type="radio"
@@ -15,7 +14,8 @@
       <input
         id="gather"
         type="checkbox"
-        name="crime">
+        name="crime"
+        checked>
       <label for="gather">Other</label>
       <p
         v-if="formError"
@@ -23,10 +23,8 @@
     </div>
   </section>
 </template>
-
-<script>
-
-  import { loadModules } from 'esri-loader';
+ <script>
+   import { loadModules } from 'esri-loader';
   export default {
     data () {
       return {
@@ -60,22 +58,18 @@
             var map = new Map({
           basemap: "dark-gray"
         });
-
-        var view = new MapView({
+         var view = new MapView({
           container: "viewDiv",
-
-          map: map,
+           map: map,
           center: ['-71.04','42.36'],
           zoom: 13
         });
-
-        // Create a point
+         // Create a point
         var point = new Point({
           longitude: '-71.04352956',
           latitude: '42.12950634'
         });
-
-        // Create a symbol for drawing the point
+         // Create a symbol for drawing the point
         var markerSymbol = new SimpleMarkerSymbol({
           color: [212, 119, 40],
           outline: {
@@ -83,26 +77,21 @@
             width: 1
           }
         });
-
-        // Create a graphic and add the geometry and symbol to it
+         // Create a graphic and add the geometry and symbol to it
         var pointGraphic = new Graphic({
           geometry: point,
           symbol: markerSymbol
         });
-
-        view.graphics.add(pointGraphic);
-
-        var newItem = {
+         view.graphics.add(pointGraphic);
+         var newItem = {
             'token': this.token
         };
         localStorage.setItem('itemsArray', JSON.stringify(newItem));
-
-        document.getElementById("controls").addEventListener("click", function(event) {
+         document.getElementById("controls").addEventListener("click", function(event) {
             var local = event.view.localStorage.itemsArray
             var datai = JSON.parse(local);
             const token = datai.token
-
-            if (event.target.id === "vandalism") {
+             if (event.target.id === "vandalism") {
               //console.log('vandalism');
               (async () => {
                   const data = await fetch('/geoloc/vandalism', {
@@ -123,19 +112,16 @@
                     width: 1
                   }
                 });
-
-                // Create a graphic and add the geometry and symbol to it
+                 // Create a graphic and add the geometry and symbol to it
                 var pointGraphic = new Graphic({
                   geometry: point,
                   symbol: markerSymbol
                 });
-
-                 view.graphics.add(pointGraphic);
+                  view.graphics.add(pointGraphic);
                 // console.log(content);
               })();
             } else if (event.target.id === "arrests") {
-
-              //console.log('arrests')
+               //console.log('arrests')
               (async () => {
                   const data = await fetch('/geoloc/arrests', {
                   method: 'GET',
@@ -146,16 +132,14 @@
                 const content = await data.json();
               })();
             } else if (event.target.id === "gather") {
-
-              //console.log('gather')
+               //console.log('gather')
               (async () => {
                   const data = await fetch('/geoloc/MVAcc', {
                   method: 'GET',
                   headers: {
                     'Authorization': token
                   }
-
-                }).then((response) => {
+                 }).then((response) => {
                   return response.json();
                 }).then(data => {
                   console.log(data)
@@ -178,21 +162,18 @@
                         width: 1
                       }
                     });
-
-                    // Create a graphic and add the geometry and symbol to it
+                     // Create a graphic and add the geometry and symbol to it
                     var pointGraphic = new Graphic({
                       geometry: point,
                       symbol: markerSymbol
                     });
-
-                    view.graphics.add(pointGraphic);
+                     view.graphics.add(pointGraphic);
                   });
                 })
                 .catch(function (error) {
                     console.log(error.response);
                 });
-
-                /*var point = new Point({
+                 /*var point = new Point({
                   longitude: '-71.05352956',
                   latitude: '42.35950634'
                 });
@@ -203,25 +184,18 @@
                     width: 1
                   }
                 });
-
-                // Create a graphic and add the geometry and symbol to it
+                 // Create a graphic and add the geometry and symbol to it
                 var pointGraphic = new Graphic({
                   geometry: point,
                   symbol: markerSymbol
                 });
-
-                view.graphics.add(pointGraphic);
+                 view.graphics.add(pointGraphic);
                 */
               })();
             }
           })
-
-
-
-        view.ui.add(document.getElementById("controls"), "top-right");
-
-
-      });
+         view.ui.add(document.getElementById("controls"), "top-right");
+       });
       this.GetAllreport()
     },
     methods: {
@@ -247,18 +221,15 @@
           this.formError = e.message
         }
       }
-
-    }
+     }
 }
 </script>
-
-<style>
+ <style>
   #viewDiv {
     height: 500px;
     width: 100%;
   }
-
-  #controls {
+   #controls {
       padding: 10px;
       padding-top: 13px;
       background-color: rgba(255, 255, 255, 0.6);

@@ -28,15 +28,40 @@
         </ul>
       </div>
     </div>
-    <b-button
-      style="margin: 50px 0 0 395px;"
-      to="/crimes">New Report</b-button>
+    <p
+      style="margin:150px 180px 20px 0;">
+      <b-button
+        v-if="role === 'chief' || role === 'detective'"
+        style="margin: 0 0 0 460px; float:left;"
+        to="/crimes">New Report</b-button>
+      <select
+        v-model="field"
+        class="form-control here"
+        style="width: 15%; float:right; margin-right:0px; margin-left: 5px;"
+        required>
+        <option
+          v-for="option in optionField"
+          :key="option.id"
+          :value="option.id">{{ option.label }}</option>
+    </select></p>
+    <input
+      v-model="keyword"
+      class="form-control here"
+      type="text"
+      placeholder="Search Reports..."
+      style="width: 15%; float:right; "
+      required
+      @keyup="search()">
+    <br
+      style="height:0px;">
     <div class="table_all_reports">
       <b-table
         :striped="true"
         :outlined="true"
         :fields="col"
         :items="dataobjct"
+        :busy.sync="isBusy"
+        :ref="table"
         style="margin-left: 20%;">
         <template
           slot="view_and_manage"
@@ -129,15 +154,20 @@
             </b-row>
             <br>
             <b-button
+              v-if="role === 'chief' || role === 'detective'"
               :to="{ name: 'edit', params: { compnos:row.item.compnos, formNature:row.item.naturecode, crimecode:row.item.main_crimecode, incident:row.item.incident_type_description, district:row.item.reptdistrict, reporting:row.item.reptdistrict, fromdate:row.item.fromdate, weapontype:row.item.weapontype, shooting:row.item.shooting, shift:row.item.shift, year:row.item.year, month:row.item.month, day_week:row.item.day_week, ucrpart:row.item.ucrpart, formX:row.item.x, formY:row.item.y, streetname:row.item.streetname, xstreetname:row.item.xstreetname, location:row.item.location }}"
               size="sm">Edit</b-button>
             <b-button
+              v-if="role === 'chief'"
               size="sm"
               style="background-color: #dc3545; border-color: #dc3545;"
-              @click="getCurentId(row.item.Compnos)">Delete</b-button>
+              @click="deleteReport(row.item.compnos)">Delete</b-button>
             <b-button
               size="sm"
               @click="row.toggleDetails">Hide Details</b-button>
+            <p
+              v-if="formSuccess"
+              class="error">{{ formSuccess }}</p>
           </b-card>
         </template>
       </b-table>
@@ -151,9 +181,6 @@
       @input="getPostData(currentPage)"
     />
     <br>
-    <p
-      v-if="formError"
-      class="error">{{ formError }}</p>
   </div>
 </template>
 
@@ -168,19 +195,6 @@ export default {
       token: store.state.authUser.data.token,
     });
   },
-  /*async asyncData () {
-    console.log('GetReport')
-    this.loading = true
-    try {
-      console.log('GetReport')
-      await this.$store.dispatch('GetAllreport', {
-        token: this.token,v
-      },
-      console.log(token))
-    } catch (e) {
-      this.formError = e.message
-    }
-  },*/
   components: {
     Navbar
   },
@@ -196,40 +210,67 @@ export default {
       role: this.$store.state.authUser.data.role,
       token: this.$store.state.authUser.data.token,
       dataobjct: this.$store.state.Repport.data,
-      formError: null
+      searchobjct: null,
+      formError: null,
+      isBusy: false,
+      formSuccess: null,
+      field:'compnos',
+      keyword:'',
+      table:null,
+      optionField: [ {id: 'compnos', label: 'By Compnos'}, {id: 'weapontype', label: 'By Weapon Type'}, {id: 'naturecode', label: 'By Nature Code'}, {id: 'main_crimecode', label: 'By Crime Code'}, {id: 'reptdistrict', label: 'By District'}, {id: 'fromdate', label: 'By Date'}, {id: 'streetname', label: 'By Street Name'}, {id: 'shift', label: 'By Shift'}, {id: 'day_week', label: 'By Day of the Week'}, {id: 'incident_type_description', label: 'By Incident Type'}],
       }
   },
   middleware : 'auth',
-    methods : {
-      async GetAllreport() {
-        console.log('GetReport')
-        try {
-          await this.$store.dispatch('GetAllreport', {
-            token: this.token,
-          })
-        } catch (e) {
-          this.formError = e.message
-        }
-      },
-      async getPostData (pageNum) {
-          console.log('currentPage')
-          return this.$store.dispatch('GetAllreportNavigation', {
-              page: pageNum,
-              token: this.token,
-            }).then((res) => {
-              console.log(res.data)
-              this.dataobjct = res.data
-            })
-      },
-      mounted(currentPage){
-      this.getPostData(currentPage)
+  methods : {
+    async GetAllreport() {
+      console.log('GetReport')
+      try {
+        await this.$store.dispatch('GetAllreport', {
+          token: this.token,
+        })
+      } catch (e) {
+        this.formError = e.message
+      }
     },
-    getCurentId(id)
-    {
-      console.log(id)
+    async getPostData (pageNum) {
+        console.log('currentPage')
+        this.formSuccess = ''
+        return this.$store.dispatch('GetAllreportNavigation', {
+            page: pageNum,
+            token: this.token,
+          }).then((res) => {
+            console.log(res.data)
+            this.dataobjct = res.data
+          })
+    },
+    async search () {
+      try {
+        await this.$store.dispatch('Search', {
+            field: this.field,
+            keyword: this.keyword,
+            token: this.token,
+          }).then(() => {
+            this.dataobjct = this.$store.state.Search.matching_reports
+            this.vuetable.setData(this.dataobjct);
+          })
+      } catch (e) {
+        this.formError = e.message
+      }
+    },
+    mounted(currentPage){
+      this.getPostData(currentPage),
+      this.formSuccess = ''
+    },
+    deleteReport(id) {
+      return this.$store.dispatch('DeleteReport',{
+        token: this.token,
+        compnos: id
+      }).then((res) => {
+        this.formSuccess = res.message
+        console.log(res)
+      })
     }
-    }
-
+  }
 }
 
 </script>
@@ -238,7 +279,7 @@ export default {
 
 .table_all_reports {
   margin-left: 100px;
-  margin-top: 50px;
+  margin-top: 55px;
 }
 
 .table_all_reports .table {

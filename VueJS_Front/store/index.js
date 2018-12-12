@@ -9,6 +9,7 @@ export const state = () => ({
   Getpermission: null,
   Pending:null,
   Repport: null,
+  Search: null,
   map: null,
   type_insident: null,
   perMonth: null
@@ -20,6 +21,9 @@ export const mutations = {
   },
   SET_AllReport(state, report) {
     state.Repport = report
+  },
+  SET_Search(state, data) {
+    state.Search = data
   },
   update (state, data) {
     state.auth = data
@@ -89,40 +93,31 @@ export const actions = {
   * @param : first_name, last_name, gender, email
   *          login, birth_date, role, password, token
   */
-  async inscription({ commit },{ token, first_name, last_name,
+  async inscription({ token,first_name, last_name,
                       gender, email, login,
-                      birth_date, hire_date, role, password}) {
-
-
-
-    axios.defaults.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': token
+                      birth_date, hire_date, role,  password}) {
+    try {
+      axios.defaults.headers = {
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'authorization': token
+      }
+      const { data } = await axios.post('http://192.168.0.40:8080/users', {
+        first_name,
+        last_name,
+        gender,
+        email,
+        login,
+        birth_date,
+        hire_date,
+        role,
+        password
+       })
+    } catch (error) {
+      if (error.response && error.response.status === 401 ) {
+        throw new Error('Echec de l inscription')
+      }
+      throw error
     }
-
-    await axios({
-      method: 'post',
-      url: 'http://172.16.31.166:8080/user',
-      params: {
-        first_name: first_name,
-        last_name: last_name,
-        gender: gender,
-        email: email,
-        birth_date: birth_date,
-        hire_date: hire_date,
-        role: role,
-        login: login,
-        password: sha1(password)
-      },
-    })
-    .then(function (response) {
-        //handle success
-        console.log(response);
-    })
-    .catch(function (error) {
-        //handle error
-        console.log(error.response);
-    });
   },
 
   /*
@@ -264,24 +259,47 @@ export const actions = {
       throw new Error('report')
     }
     throw error
-  }
-},
+    }
+  },
 
-async perMonth({ commit }, { year, token}) {
-  try {
-    axios.defaults.headers = {
-      'authorization': token
+  async perMonth({ commit }, { year, token}) {
+    try {
+      axios.defaults.headers = {
+        'authorization': token
+      }
+      const { data } = await axios.get('/incidents_per_month?year='+year)
+      commit('SET_PerMonth', data)
     }
-    const { data } = await axios.get('/incidents_per_month?year='+year)
-    commit('SET_PerMonth', data)
-  }
-  catch (error) {
-    if (error.response && error.response.status === 403) {
-      throw new Error('per month failed')
+    catch (error) {
+      if (error.response && error.response.status === 403) {
+        throw new Error('per month failed')
+      }
+      throw error
     }
-    throw error
-  }
-},
+  },
+
+  async Search({ commit }, { field, keyword, token}) {
+    try {
+      axios.defaults.headers = {
+        'authorization': token
+      }
+      const { data } = await axios({
+          url: 'http://192.168.0.40:80/searchResults',
+          method: 'GET',
+          params: {
+            keyword: keyword,
+            field:field
+          },
+        })
+      commit('SET_Search', data)
+    }
+    catch (error) {
+      if (error.response && error.response.status === 403) {
+        throw new Error('Search failed')
+      }
+      throw error
+    }
+  },
 
   /*
   * fonction for pagination and get all report
@@ -292,7 +310,7 @@ async perMonth({ commit }, { year, token}) {
       axios.defaults.headers = {
         'Authorization': token
     }
-    const { data } = await axios.get('/reports?page='+page+'&per_page=25')
+    const { data } = await axios.get('/reports?page='+page+'&per_page=15')
     commit('SET_AllReport',data)
     return data
   } catch (error) {
@@ -324,17 +342,9 @@ async perMonth({ commit }, { year, token}) {
   },
 
   async GetCsv({token}){
-    // axios.default.headers = {
-    //   'Authorization': token
-    // }
-    // await axios.get('http://192.168.34.28:8080/exportToCsv')
-    // let blob = new Blob([response.data], { type: 'application/pdf' }),
-    //     url = window.URL.createObjectURL(blob)
-    //
-    //   window.open(url)
     try {
       axios({
-          url: 'http://192.168.34.28:8080/exportToCsv',
+          url: 'http://192.168.0.40:8081/exportToCsv',
           method: 'GET',
           responseType: 'blob',
         }).then((response) => {
@@ -353,6 +363,38 @@ async perMonth({ commit }, { year, token}) {
     }
   },
 
+  async inscription({ commit },{ token, first_name, last_name,
+                      gender, email, login,
+                      birth_date, hire_date, role, password}) {
+     axios.defaults.headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+    }
+     await axios({
+      method: 'post',
+      url: 'http://192.168.0.40:8080/user',
+      params: {
+        first_name: first_name,
+        last_name: last_name,
+        gender: gender,
+        email: email,
+        birth_date: birth_date,
+        hire_date: hire_date,
+        role: role,
+        login: login,
+        password: sha1(password)
+      },
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error.response);
+    });
+  },
+
   async validate({commit},{token, id})
   {
     try {
@@ -360,7 +402,7 @@ async perMonth({ commit }, { year, token}) {
           'Authorization': token
       }
       const { data } = await axios.put('/activate_user/'+id)
-      commit('SET_Pending',data)
+      // commit('SET_Pending',data)
       return {
         message : 'Success'
       }
@@ -371,5 +413,25 @@ async perMonth({ commit }, { year, token}) {
       throw error
     }
   },
+
+  async DeleteReport({commit},{token,compnos})
+  {
+    try {
+        axios.defaults.headers = {
+          'Authorization': token
+      }
+      const { data } = await axios.delete('/reports/'+compnos)
+      commit('SET_AllReport',data)
+      return {
+        message : 'Report has been deleted'
+      }
+    } catch (error) {
+      if (error.response) {
+        throw new Error('Error delete')
+      }
+      throw error
+    }
+  },
+
 
 }
