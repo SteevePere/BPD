@@ -56,6 +56,45 @@ exports.plugin = {
     		}
       },
 			{
+				//Get incidents per day
+				method: 'GET',
+				path: '/incidents_per_day',
+				handler: ReportController.perDay,
+				options: {
+		        validate: {
+		            query: {
+									year : Joi.number().integer().required(),
+		            }
+		        }
+    		}
+      },
+			{
+				//Get incidents per district
+				method: 'GET',
+				path: '/incidents_per_district',
+				handler: ReportController.perDistrict,
+				options: {
+		        validate: {
+		            query: {
+									year : Joi.number().integer().required(),
+		            }
+		        }
+    		}
+      },
+			{
+				//Get incidents per weapon type
+				method: 'GET',
+				path: '/incidents_per_weapon',
+				handler: ReportController.perWeapon,
+				options: {
+		        validate: {
+		            query: {
+									year : Joi.number().integer().required(),
+		            }
+		        }
+    		}
+      },
+			{
 				//Create one report
 				method: 'POST',
 				path: '/add_report',

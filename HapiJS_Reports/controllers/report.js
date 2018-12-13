@@ -110,6 +110,93 @@ exports.perMonth = async function(req, h) {
 	}
 }
 
+//Get incidents per day
+exports.perDay = async function(req, h) {
+
+	const mysql = req.mysql.pool;
+	const token = req.headers[ 'authorization' ];
+	const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token]);
+
+	try {
+
+		const role = row[0]['role'];
+		const year = [];
+		const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
+
+		for (let index = 0, len = days.length; index < len; index++) {
+
+			const total = await Report.countDocuments({day_week: days[index], year: req.query.year})
+
+				year.push({
+			    day: days[index],
+			 		total: total
+				});
+		}
+		return h.response({ data: year, code: 200 }).code(200);
+	}
+	catch (err) {
+		return h.response({ message: err, code: 401}).code(401);
+	}
+}
+
+//Get incidents per district
+exports.perDistrict = async function(req, h) {
+
+	const mysql = req.mysql.pool;
+	const token = req.headers[ 'authorization' ];
+	const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token]);
+
+	try {
+
+		const role = row[0]['role'];
+		const year = [];
+		const districts = ['C11', 'E5', 'A1', 'D4', 'B2']
+
+		for (let index = 0, len = districts.length; index < len; index++) {
+
+			const total = await Report.countDocuments({reptdistrict: districts[index], year: req.query.year})
+
+				year.push({
+			    district: districts[index],
+			 		total: total
+				});
+		}
+		return h.response({ data: year, code: 200 }).code(200);
+	}
+	catch (err) {
+		return h.response({ message: err, code: 401}).code(401);
+	}
+}
+
+//Get incidents per weapon
+exports.perWeapon = async function(req, h) {
+
+	const mysql = req.mysql.pool;
+	const token = req.headers[ 'authorization' ];
+	const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token]);
+
+	try {
+
+		const role = row[0]['role'];
+		const year = [];
+		const weapons = ['Unarmed', 'Knife', 'Firearm', 'Personal Weapon (hand  foot  etc.)', 'Other']
+
+		for (let index = 0, len = weapons.length; index < len; index++) {
+
+			const total = await Report.countDocuments({weapontype: weapons[index], year: req.query.year})
+
+				year.push({
+			    weapon: weapons[index],
+			 		total: total
+				});
+		}
+		return h.response({ data: year, code: 200 }).code(200);
+	}
+	catch (err) {
+		return h.response({ message: err, code: 401}).code(401);
+	}
+}
+
 //Create one (only chief & detectives)
 exports.create = async function(req, h) {
 

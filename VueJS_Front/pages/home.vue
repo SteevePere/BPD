@@ -28,12 +28,42 @@
         </ul>
       </div>
       <Map/>
-      <MonthChart
-        style="float: left; width: 50%; padding: 20px;"
-      />
-      <MonthChart
-        style="float: right; width: 50%; padding: 20px; background: rgb(33, 37, 41);"
-      />
+      <div
+        style="float:left; width:50%; padding-top: 20px;">
+        <h3
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Month</h3>
+        <MonthChart
+          style="width:100%;padding: 20px;"
+        />
+      </div>
+      <div
+        style="float:right; width:50%; background: rgb(33, 37, 41); padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Day</h2>
+        <DayChart
+          style="padding: 20px; background: rgb(33, 37, 41);"
+        />
+      </div>
+      <div
+        style="float:left; width:50%; background: rgb(33, 37, 41); padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per District in 2015</h2>
+        <DistrictChart
+          style="padding: 20px;"
+        />
+      </div>
+      <div
+        style="float:right; width:50%; padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Weapon</h2>
+        <WeaponChart
+          style="padding: 20px;"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,15 +72,33 @@
 import Navbar from '~/components/Navbar';
 import Map from '~/components/Map';
 import MonthChart from '~/components/MonthChart';
+import DayChart from '~/components/DayChart';
+import DistrictChart from '~/components/DistrictChart';
+import WeaponChart from '~/components/WeaponChart';
 
 export default {
   components: {
     Navbar,
     Map,
-    MonthChart
+    MonthChart,
+    DayChart,
+    DistrictChart,
+    WeaponChart
   },
   async fetch ({store}) {
     await store.dispatch('perMonth',{
+      token: store.state.authUser.data.token,
+      year: 2015,
+    }),
+    await store.dispatch('perDay',{
+      token: store.state.authUser.data.token,
+      year: 2015,
+    });
+    await store.dispatch('perDistrict',{
+      token: store.state.authUser.data.token,
+      year: 2015,
+    });
+    await store.dispatch('perWeapon',{
       token: store.state.authUser.data.token,
       year: 2015,
     });
