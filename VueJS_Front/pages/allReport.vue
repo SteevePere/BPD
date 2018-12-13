@@ -28,8 +28,14 @@
         </ul>
       </div>
     </div>
+    <div style="margin-top: 130px; margin-left: 150px; text-align: center; ">
+      <h4
+        style="color: white;"
+      >All Reports</h4>
+      <br>
+    </div>
     <p
-      style="margin:150px 180px 20px 0;">
+      style="margin:30px 180px 20px 0;">
       <b-button
         v-if="role === 'chief' || role === 'detective'"
         style="margin: 0 0 0 460px; float:left;"
@@ -283,7 +289,8 @@ export default {
 }
 
 .table_all_reports .table {
-  background-color: rgb(136, 166, 195);
+  color: #ccc;
+  background: #2A3F54;
   padding: 25px;
   border: 0px;
 }
@@ -291,7 +298,8 @@ export default {
 table.b-table {
   max-width: 70%;
   border-radius: 0px;
-  background-color: rgb(136, 166, 195);
+  background-color: rgba(0, 231, 255, 0.9);
+  /* border: 1px solid red !important; */
 }
 
 .card {

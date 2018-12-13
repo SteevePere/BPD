@@ -32,9 +32,11 @@
               class="nav-link">
               <nuxt-link
                 to="/admin"
-                class="admin">Control Panel</nuxt-link>
+                class="admin">Admin Area</nuxt-link>
               <i class="fa fa-envelope-o">
-                <span class="badge badge-danger">1</span>
+                <span
+                  v-if="notifs != 0"
+                  class="badge badge-danger">{{ notifs }}</span>
               </i>
             </a>
           </li>
@@ -67,7 +69,8 @@
 	export default {
 		data () {
 	    return {
-	      role: this.$store.state.authUser.data.role
+	      role: this.$store.state.authUser.data.role,
+        notifs: this.$store.state.authUser.notifs.total_notifs,
 	    }
 	  },
 		middleware : 'auth',

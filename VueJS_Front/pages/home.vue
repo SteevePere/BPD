@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar/>
+    <Navbar :key="navbar"/>
     <div id="wrapper">
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -106,6 +106,8 @@ export default {
   data () {
     return {
       role: this.$store.state.authUser.data.role,
+      notifs: this.$store.state.authUser.notifs.total_notifs,
+      navbar: 0,
     }
   },
 middleware : 'auth',
@@ -135,19 +137,21 @@ middleware : 'auth',
 }
 
 .dropdown-menu.show {
-  width: 100%;
-  left:5px;
+  width: 250px;
+  /* left:0px; */
   margin-top:0;
-  margin-left: 5px;
+  transform: translate3d(0, 50px, 0)!important;
+
+  /* margin-left: 0px; */
 
   border-radius:0;
 }
 
-.menu-item {
+/* .menu-item {
   padding-right:0px;
   display: block;
   width: 100%;
-}
+} */
   #wrapper {
       padding-left: 0;
       margin-top:76px;
@@ -279,6 +283,13 @@ middleware : 'auth',
   {
     margin-top: 50px;
   }
+
+
+  .dropdown-item.active, .dropdown-item:active {
+    background-color: #ccc;
+    color:#212529;
+  }
+
   .info
   {
     font-weight: 300;
@@ -317,6 +328,7 @@ middleware : 'auth',
   .esri-ui-top-right .esri-component, .esri-ui-top-left .esri-component {
     border-radius: 3px;
   }
+
 
 
 </style>

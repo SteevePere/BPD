@@ -16,7 +16,7 @@ const launchServer = async function() {
 
 	const server = new Hapi.Server({
 	  port: 8000,
-	  host: 'localhost'
+	  host: '192.168.0.40'
 	});
 
 	await server.register([

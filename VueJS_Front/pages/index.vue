@@ -58,7 +58,8 @@ export default {
       formUsername: '',
       formPassword: '',
       isDisplay: false,
-      token: ''
+      token: '',
+      notifs: ''
     }
   },
   methods: {
@@ -71,18 +72,11 @@ export default {
           username: this.formUsername,
           password: this.formPassword
         })
-
         this.formUsername = ''
         this.formPassword = ''
         this.formError = null
         this.token = this.$store.state.authUser.data.token
-        /*setTimeout(() => {
-        const auth = {
-          accessToken: this.token
-        }
-        this.$store.commit('update', auth) // muter `auth` dans le store pour le rendu client
-        Cookie.set('auth', auth) // sauver le jeton dans un cookie pour le rendu serveur
-      }, 10000)*/
+        this.notifs = this.$store.state.authUser.notifs.total_notifs
         this.$router.push('/home')
       } catch (e) {
         this.formError = e.message

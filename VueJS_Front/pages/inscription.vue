@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar/>
+    <Navbar :key="navbar"/>
     <div id="wrapper">
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -210,14 +210,18 @@
                 <p
                   v-if="formError"
                   class="error">{{ formError }}</p>
-                <p v-if="errors.length">
-                  <b>Please correct the following error(s):</b>
-                  <ul>
-                    <li
-                      v-for="error in errors"
-                      :key="error.formError">{{ error }}</li>
-                  </ul>
-                </p>
+                <center>
+                  <p v-if="errors.length">
+                    <br>
+                    <ul>
+                      <p
+                        v-for="error in errors"
+                        :key="error.formError"
+                        style="color: white;"
+                      >{{ error }}</p>
+                    </ul>
+                  </p>
+                </center>
               </form>
             </div>
           </div>
@@ -237,6 +241,7 @@
       return {
         role: this.$store.state.authUser.data.role,
         token: this.$store.state.authUser.data.token,
+        notifs: this.$store.state.authUser.notifs.total_notifs,
         errors: [],
         formFirstName: '',
         formLastName: '',
@@ -250,6 +255,7 @@
         formHire: '',
         formError:null,
         formResult: null,
+        navbar: 0,
         GenreOption: [{id: 'M', label: 'Male'}, {id: 'F', label: 'Female'} ],
         options: [ {id: 'agent', label: 'Agent'}, {id: 'detective', label: 'Detective'} ]
       }
@@ -260,31 +266,31 @@
       console.log('inscription')
       this.errors = [];
       if (!this.formFirstName) {
-        this.errors.push('First Name required.');
+        this.errors.push('First Name required');
       }
       if (!this.formLastName) {
-        this.errors.push('Last Name required.');
+        this.errors.push('Last Name required');
       }
       if (!this.formEmail) {
-        this.errors.push('Email required.');
+        this.errors.push('Email required');
       }
       if (!this.formLogin) {
-        this.errors.push('Login required.');
+        this.errors.push('Login required');
       }
       if (!this.formdate) {
-        this.errors.push('Date required.');
+        this.errors.push('Date required');
       }
       if (!this.formGenre) {
-        this.errors.push('Genre required.');
+        this.errors.push('Genre required');
       }
       if (!this.formRole) {
-        this.errors.push('Role required.');
+        this.errors.push('Role required');
       }
       if (!this.formHire) {
-        this.errors.push('Hire required !');
+        this.errors.push('Hire required');
       }
       if (this.formPassword !== this.formPasswordConf) {
-        this.errors.push('Error Password !');
+        this.errors.push('Passwords don\'t match!');
       }
       else {
            try {
@@ -300,6 +306,9 @@
               role: this.formRole,
               password: this.formPassword
             })
+          this.notifs = this.notifs + 1;
+          this.$store.state.authUser.notifs.total_notifs = this.notifs;
+          this.navbar = this.navbar + 1;
           } catch (e) {
             this.formError = e.message
           }

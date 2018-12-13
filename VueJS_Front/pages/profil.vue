@@ -47,8 +47,8 @@
                     src="../assets/Profile.jpeg">
                 </div>
               </div>
-              <div style="float:left; margin-top: 50px; margin-left: 20px;">
-                <h4>Your Profile</h4>
+              <div style="float:left; margin-top: 50px; margin-left: 25px;">
+                <h4>My Profile</h4>
               </div>
             </div>
           </div>

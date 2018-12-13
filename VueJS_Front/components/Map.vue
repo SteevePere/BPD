@@ -4,11 +4,11 @@
     <div id="controls">
       <input
         id="vandalism"
-        type="radio"
+        type="checkbox"
         name="crime"> <label for="vandalism">Vandalism</label>
       <input
         id="arrests"
-        type="radio"
+        type="checkbox"
         name="crime">
       <label for="arrests">Warrant Arrests</label>
       <input

@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <Navbar/>
+    <Navbar :key="navbar"/>
     <div id="wrapper">
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -36,6 +36,7 @@
       </div>
       <div class="table">
         <b-table
+          :key = "pending_table"
           :striped="true"
           :outlined="true"
           :fields="col"
@@ -80,6 +81,7 @@ export default {
     return {
       role: this.$store.state.authUser.data.role,
       token: this.$store.state.authUser.data.token,
+      notifs: this.$store.state.authUser.notifs.total_notifs,
       col: ["id","role","login","first_name","last_name",
       "hire_date",
       'created_by',
@@ -89,7 +91,9 @@ export default {
       formError: null,
       isBusy: false,
       formSuccess: null,
-      pending_users: null
+      pending_users: null,
+      navbar: 0,
+      pending_table: 0,
     }
   },
   middleware : 'auth',
@@ -114,8 +118,9 @@ export default {
         token: this.token,
         id: id
       }).then(() => {
-        this.dataobjct = this.$store.state.Pending.data
-        this.vuetable.setData(this.dataobjct);
+        this.notifs = this.notifs -1;
+        this.$store.state.authUser.notifs.total_notifs = this.notifs;
+        this.navbar = this.navbar + 1;
       })
     }
   }
@@ -136,15 +141,17 @@ export default {
 }
 
 .table .table {
-  background-color: rgb(136, 166, 195);
+  color: #bfbfbf;
+  background: #2A3F54;
   padding: 25px;
   border: 0px;
 }
 
 table.b-table {
-  float: center;
   max-width: 70%;
-  border-radius: 0;
+  border-radius: 0px;
+  background-color: rgba(0, 231, 255, 0.9);
+  /* border: 10px solid white !important; */
 }
 
 </style>

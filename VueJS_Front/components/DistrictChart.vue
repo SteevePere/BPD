@@ -30,8 +30,8 @@ export default {
     this.gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
 
     this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.gradient2.addColorStop(0, 'rgba(102, 255, 51, 0.5)')
-    this.gradient2.addColorStop(0.5, 'rgba(102, 255, 51, 0.25)');
+    this.gradient2.addColorStop(0, 'rgba(102, 255, 51, 0.4)')
+    this.gradient2.addColorStop(0.5, 'rgba(102, 255, 51, 0.1)');
     this.gradient2.addColorStop(1, 'rgba(102, 255, 51, 0)');
 
     this.gradient3 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
@@ -40,20 +40,19 @@ export default {
     this.gradient3.addColorStop(1, 'rgba(0, 231, 255, 0)');
 
     this.gradient4 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.gradient4.addColorStop(0, 'rgba(255, 255, 255, 0.5)')
-    this.gradient4.addColorStop(0.5, 'rgba(255, 255, 255, 0.25)');
-    this.gradient4.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    this.gradient4.addColorStop(0, 'rgba(255, 153, 255, 0.5)')
+    this.gradient4.addColorStop(0.5, 'rgba(255, 153, 255, 0.25)');
+    this.gradient4.addColorStop(1, 'rgba(255, 153, 255, 0)');
 
     this.gradient5 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.gradient5.addColorStop(0, 'rgba(0, 153, 153, 0.5)')
-    this.gradient5.addColorStop(0.5, 'rgba(0, 153, 153, 0.25)');
-    this.gradient5.addColorStop(1, 'rgba(0, 153, 153, 0)');
+    this.gradient5.addColorStop(0, 'rgba(255, 255, 255, 0.9)')
+    this.gradient5.addColorStop(0.5, 'rgba(255, 255, 255, 0.15)');
+    this.gradient5.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
     this.renderChart({
       labels: ['District C11', 'District E5', 'District A1', 'District D4', 'District B2'],
       datasets: [
         {
-          label: 2015,
           borderColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',

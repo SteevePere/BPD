@@ -15,10 +15,15 @@ exports.login = async function(req, h) {
 
 			const [row, fields] = await mysql.query('SELECT * FROM users WHERE login = ? and password = ?;',[login, password]);
 			const user = row[0];
-			return h.response({ data: user, code: 200}).code(200);
+
+			const pending = "OFF";
+			const [name, attrib] = await mysql.query('SELECT COUNT(login) AS total_notifs FROM users WHERE status = ?;',[pending]);
+			const notifs = name[0];
+			return h.response({ notifs: notifs, data: user, code: 200}).code(200);
 	}
 	catch (err) {
-		return h.response({ message: 'Unauthorized', code: 401}).code(401);
+		console.log(err)
+		// return h.response({ message: 'Unauthorized', code: 401}).code(401);
 	}
 }
 
