@@ -179,8 +179,13 @@
                       name="password"
                       class="form-control"
                       required="true"
+                      pattern=".{6,}"
                       value=""
-                      type="password"></p>
+                      type="password">
+                      <small
+                        style="color: white;"
+                      >6 characters minimum</small>
+                    </p>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -193,20 +198,24 @@
                       name="passwordConf"
                       class="form-control"
                       required="true"
+                      pattern=".{6,}"
                       value=""
                       type="password"></p>
                   </div>
                 </div>
                 <br>
                 <button
+                  v-show="show"
                   class="btn btn-primary"
                   type="submit"
                   value="Submit"
-                  to="/home"
-                  name="button">Save User</button>
+                  name="button"
+                >Save User</button>
                 <b-button
+                  v-show="show"
                   to="/home"
-                  class="btn btn-danger">Cancel</b-button>
+                  class="btn btn-danger"
+                >Cancel</b-button>
                 <p
                   v-if="formError"
                   class="error">{{ formError }}</p>
@@ -256,6 +265,7 @@
         formError:null,
         formResult: null,
         navbar: 0,
+        show: true,
         GenreOption: [{id: 'M', label: 'Male'}, {id: 'F', label: 'Female'} ],
         options: [ {id: 'agent', label: 'Agent'}, {id: 'detective', label: 'Detective'} ]
       }
@@ -263,7 +273,7 @@
   middleware : 'auth',
   methods : {
     async inscription() {
-      console.log('inscription')
+
       this.errors = [];
       if (!this.formFirstName) {
         this.errors.push('First Name required');
@@ -306,6 +316,8 @@
               role: this.formRole,
               password: this.formPassword
             })
+          this.show = false;
+          this.$router.push("/home");
           this.notifs = this.notifs + 1;
           this.$store.state.authUser.notifs.total_notifs = this.notifs;
           this.navbar = this.navbar + 1;

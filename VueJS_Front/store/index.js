@@ -317,7 +317,7 @@ export const actions = {
         'authorization': token
       }
       const { data } = await axios({
-          url: 'http://192.168.0.40:80/searchResults',
+          url: 'http://192.168.34.28:80/searchResults',
           method: 'GET',
           params: {
             keyword: keyword,
@@ -377,7 +377,7 @@ export const actions = {
   async GetCsv({token}){
     try {
       axios({
-          url: 'http://192.168.0.40:8081/exportToCsv',
+          url: 'http://192.168.34.28:8080/exportToCsv',
           method: 'GET',
           responseType: 'blob',
         }).then((response) => {
@@ -405,7 +405,7 @@ export const actions = {
     }
      await axios({
       method: 'post',
-      url: 'http://192.168.0.40:8080/user',
+      url: 'http://192.168.34.28:8081/user',
       params: {
         first_name: first_name,
         last_name: last_name,
@@ -435,7 +435,7 @@ export const actions = {
           'Authorization': token
       }
       const { data } = await axios.put('/activate_user/'+id)
-      // commit('SET_Pending',data)
+      commit('SET_Pending',data)
       return {
         message : 'Success'
       }

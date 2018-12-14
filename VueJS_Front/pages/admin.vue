@@ -31,11 +31,17 @@
     <div class="content-admin">
       <div style="margin-top: 140px; text-align: center; ">
         <h4
+          v-if="dataobjct[0]"
           style="color: white;"
         >Accounts currently pending :</h4>
+        <h4
+          v-else
+          style="color: white;"
+        >No user accounts pending. Good job, chief!</h4>
       </div>
       <div class="table">
         <b-table
+          v-if="dataobjct[0]"
           :key = "pending_table"
           :striped="true"
           :outlined="true"
@@ -121,6 +127,11 @@ export default {
         this.notifs = this.notifs -1;
         this.$store.state.authUser.notifs.total_notifs = this.notifs;
         this.navbar = this.navbar + 1;
+        this.dataobjct = this.$store.state.Pending.data;
+        if (this.dataobjct == []) {
+          this.message = "ok";
+        }
+        this.pending_table = this.pending_table + 1;
       })
     }
   }
