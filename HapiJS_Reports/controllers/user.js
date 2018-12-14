@@ -58,6 +58,7 @@ exports.activate = async function(req, h) {
 	const token = req.headers[ 'authorization' ];
 	const id = req.params.id;
 	const status = 'ON';
+	const pending = 'OFF';
 	const [row, fields] = await mysql.query('SELECT role FROM users WHERE token = ?;',[token]);
 
 	try {
@@ -65,7 +66,9 @@ exports.activate = async function(req, h) {
 
 		if (role == 'chief') {
 			const [row, fields] = await mysql.query('UPDATE users SET status = ? WHERE id = ?;',[status, id]);
-			return h.response({ message: 'Updated', code: 200}).code(200);
+			const [line, columns] = await mysql.query('SELECT * FROM users WHERE status = ?;',[pending]);
+			const user = line;
+			return h.response({ message: 'Updated', data: user, code: 200}).code(200);
 		}
 		else return h.response({ message: 'Forbidden', code: 403}).code(403);
 	}
