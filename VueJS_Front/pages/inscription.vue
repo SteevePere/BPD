@@ -166,14 +166,16 @@
                       class="form-control"
                       required="true"
                       value=""
-                      type="text"></p>
+                      type="email"></p>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label
                     class="col-4 col-form-label">Password</label>
                   <div class="col-8">
-                    <p><input
+                    <p
+                      style="margin-bottom: 0;"
+                    ><input
                       id="pass"
                       v-model="formPassword"
                       name="password"
@@ -184,7 +186,7 @@
                       type="password">
                       <small
                         style="color: white;"
-                      >6 characters minimum</small>
+                      >At least 6 characters</small>
                     </p>
                   </div>
                 </div>

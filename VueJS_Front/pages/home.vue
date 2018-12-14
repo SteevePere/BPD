@@ -50,7 +50,7 @@
         style="float:left; width:50%; background: rgb(33, 37, 41); padding-top: 20px;">
         <h2
           style="color: white; text-align: center; font-size:16px;"
-        >Incidents per District in 2015</h2>
+        >Incidents per District</h2>
         <DistrictChart
           style="padding: 20px;"
         />
@@ -59,7 +59,7 @@
         style="float:right; width:50%; padding-top: 20px;">
         <h2
           style="color: white; text-align: center; font-size:16px;"
-        >Incidents per Weapon</h2>
+        >Incidents per Weapon Type</h2>
         <WeaponChart
           style="padding: 20px;"
         />
@@ -276,7 +276,7 @@ middleware : 'auth',
 
 
   #viewDiv {
-    height: 650px;
+    height: 800px;
     width: 100%;
   }
   .title

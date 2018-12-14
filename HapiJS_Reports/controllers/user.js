@@ -22,8 +22,7 @@ exports.login = async function(req, h) {
 			return h.response({ notifs: notifs, data: user, code: 200}).code(200);
 	}
 	catch (err) {
-		console.log(err)
-		// return h.response({ message: 'Unauthorized', code: 401}).code(401);
+		return h.response({ message: 'Unauthorized', code: 401}).code(401);
 	}
 }
 

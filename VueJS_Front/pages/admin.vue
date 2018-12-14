@@ -61,7 +61,7 @@
         <b-button
           type="button"
           name="button"
-          style="margin-left: 43%;"
+          style="margin-left:73%;"
           @click="getCSV">Export all users to CSV file</b-button>
         <p
           v-if="formError"

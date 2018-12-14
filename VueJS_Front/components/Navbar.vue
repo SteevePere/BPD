@@ -8,7 +8,7 @@
         <ul
           class="navbar-nav mr-auto">
           <a
-            href="https://twitter.com/bostonpolice?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+            href="http://bpdnews.com/"
             target="_blank" >
             <img
               class="logo"
@@ -132,5 +132,9 @@ navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark {
 
 .navbar-expand-lg .navbar-nav .nav-link {
   padding-top: 17px;
+}
+
+.badge-danger {
+  font-style: normal;
 }
 </style>

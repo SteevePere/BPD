@@ -53,7 +53,9 @@ class ReportController extends Controller {
 
 		$field = $request->input('field');
 		$keyword = $request->input('keyword');
+
 		$keyword = '%'.$keyword.'%';
+
 		$reports = Report::where($field, 'like', $keyword)->skip($per_page * ($page - 1))->take($per_page)->get();
 
 		$response = [
