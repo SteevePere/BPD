@@ -55,7 +55,7 @@ export default {
           pointBorderColor: 'white',
           borderWidth: 1,
           backgroundColor: this.gradient,
-          data: [5467,6200,7546]
+          data: [5067,6400,7346]
         },
         {
           label: 2015,
@@ -73,7 +73,7 @@ export default {
           pointBorderColor: 'white',
           borderWidth: 1,
           backgroundColor: this.gradient3,
-          data: [6202,5828,7912]
+          data: [5402,6228,7912]
         },
       ]
     }, {responsive: true, maintainAspectRatio: false})

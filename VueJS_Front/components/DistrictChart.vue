@@ -25,14 +25,14 @@ export default {
   mounted () {
 
     this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 650)
-    this.gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)')
-    this.gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-    this.gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+    this.gradient.addColorStop(0, 'rgba(244, 131, 66, 0.4)')
+    this.gradient.addColorStop(0.5, 'rgba(244, 131, 66, 0.25)');
+    this.gradient.addColorStop(0.5, 'rgba(244, 131, 66, 0)');
 
-    this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
+    this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 750)
     this.gradient2.addColorStop(0, 'rgba(102, 255, 51, 0.4)')
-    this.gradient2.addColorStop(0.5, 'rgba(102, 255, 51, 0.1)');
-    this.gradient2.addColorStop(1, 'rgba(102, 255, 51, 0)');
+    this.gradient2.addColorStop(0.5, 'rgba(102, 255, 51, 0.2)');
+    this.gradient2.addColorStop(1, 'rgba(255, 0, 0, 0.1)');
 
     this.gradient3 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
     this.gradient3.addColorStop(0, 'rgba(0, 231, 255, 0.5)')
@@ -54,35 +54,35 @@ export default {
       datasets: [
         {
           label: '2014',
-          borderColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          borderColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
           hoverBorderColor: 'white',
-          hoverBackgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          hoverBackgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           borderWidth: 1,
-          backgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          backgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           data: [2792, 815, 2912, 2445, 3914]
         },
         {
           label: '2015',
-          borderColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          borderColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
           hoverBorderColor: 'white',
-          hoverBackgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          hoverBackgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           borderWidth: 1,
-          backgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          backgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           data: [this.c11, this.e5, this.a1, this.d4, this.b2]
         },
         {
           label: '2016',
-          borderColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          borderColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
           hoverBorderColor: 'white',
-          hoverBackgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          hoverBackgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           borderWidth: 1,
-          backgroundColor: [this.gradient2, this.gradient,this.gradient3,this.gradient4,this.gradient5],
+          backgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           data: [2649, 835, 2053, 2513, 2998]
         },
       ]

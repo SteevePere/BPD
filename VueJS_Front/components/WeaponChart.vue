@@ -15,7 +15,6 @@ export default {
   data () {
     return {
       loaded: false,
-      // unarmed: this.$store.state.perWeapon.data[0].total,
       knife: this.$store.state.perWeapon.data[1].total,
       firearm: this.$store.state.perWeapon.data[2].total,
       personal: this.$store.state.perWeapon.data[3].total,
@@ -45,26 +44,29 @@ export default {
       datasets: [
         {
           label: 2014,
-          borderColor: [this.gradient2],
+          borderColor: [this.gradient],
           pointBackgroundColor: 'white',
+          hoverBackgroundColor: ['rgba(255, 0,0, 0.5)','rgba(255, 0,0, 0.5)', 'rgba(255, 0,0, 0.5)', 'rgba(255, 0,0, 0.5)'],
           pointBorderColor: 'white',
           borderWidth: 1,
-          backgroundColor: [this.gradient2, this.gradient2, this.gradient2, this.gradient2],
+          backgroundColor: [this.gradient, this.gradient, this.gradient, this.gradient],
           data: [122, 412, 264, 1745]
         },
         {
           label: 2015,
-          borderColor: [this.gradient],
+          borderColor: [this.gradient2],
           pointBackgroundColor: 'white',
+          hoverBackgroundColor: ['rgba(0, 231, 255, 0.5)','rgba(0, 231, 255, 0.5)','rgba(0, 231, 255, 0.5)', 'rgba(0, 231, 255, 0.5)'],
           pointBorderColor: 'white',
           borderWidth: 1,
-          backgroundColor: [this.gradient, this.gradient, this.gradient, this.gradient],
+          backgroundColor: [this.gradient2, this.gradient2, this.gradient2, this.gradient2],
           data: [this.knife, this.firearm, this.personal, this.other]
         },
         {
           label: 2016,
           borderColor: [this.gradient3],
           pointBackgroundColor: 'white',
+          hoverBackgroundColor: ['rgba(255, 255, 255, 0.5)','rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 0.5)'],
           pointBorderColor: 'white',
           borderWidth: 1,
           backgroundColor: [this.gradient3, this.gradient3, this.gradient3, this.gradient3],

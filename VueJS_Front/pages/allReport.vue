@@ -64,6 +64,10 @@
       <b-table
         :striped="true"
         :outlined="true"
+        :hover="true"
+        :fixed="false"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
         :fields="col"
         :items="dataobjct"
         :busy.sync="isBusy"
@@ -207,11 +211,16 @@ export default {
   data () {
     return {
       currentPage: 1,
-      col: ["compnos","naturecode","main_crimecode","reptdistrict",
-      "fromdate",
-      "weapontype",
-      "streetname",
-      'view_and_manage'],
+      col: [
+        { key: 'compnos', sortable: true },
+        { key: 'naturecode', sortable: true },
+        { key: 'main_crimecode', sortable: true },
+        { key: 'reptdistrict', sortable: true },
+        { key: 'fromdate', sortable: true },
+        { key: 'weapontype', sortable: true },
+        { key: 'streetname', sortable: true },
+        { key: 'view_and_manage', sortable: false },
+      ],
       loading: false,
       role: this.$store.state.authUser.data.role,
       token: this.$store.state.authUser.data.token,
@@ -220,10 +229,12 @@ export default {
       formError: null,
       isBusy: false,
       formSuccess: null,
-      field:'compnos',
+      field:'weapontype',
       keyword:'',
       table:null,
-      optionField: [ {id: 'compnos', label: 'By Compnos'}, {id: 'weapontype', label: 'By Weapon Type'}, {id: 'naturecode', label: 'By Nature Code'}, {id: 'main_crimecode', label: 'By Crime Code'}, {id: 'reptdistrict', label: 'By District'}, {id: 'fromdate', label: 'By Date'}, {id: 'streetname', label: 'By Street Name'}, {id: 'shift', label: 'By Shift'}, {id: 'day_week', label: 'By Day of the Week'}, {id: 'incident_type_description', label: 'By Incident Type'}],
+      sortBy: 'compnos',
+      sortDesc: false,
+      optionField: [{id: 'weapontype', label: 'By Weapon Type'}, {id: 'naturecode', label: 'By Nature Code'}, {id: 'main_crimecode', label: 'By Crime Code'}, {id: 'reptdistrict', label: 'By District'}, {id: 'fromdate', label: 'By Date'}, {id: 'streetname', label: 'By Street Name'}, {id: 'shift', label: 'By Shift'}, {id: 'day_week', label: 'By Day of the Week'}, {id: 'incident_type_description', label: 'By Incident Type'}],
       }
   },
   middleware : 'auth',
@@ -303,7 +314,7 @@ table.b-table {
 }
 
 .card {
-  background: #2A3F54;
+  background: #1a2633;
 }
 
 .text-sm-right {
