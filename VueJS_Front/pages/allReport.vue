@@ -77,14 +77,19 @@
           slot="view_and_manage"
           slot-scope="row">
           <b-button
+            v-if="!row.detailsShowing"
             v-model="row.detailsShowing"
             size="sm"
             class="mr-2"
             @click.native.stop
             @change="row.toggleDetails"
             @click.stop="row.toggleDetails">
-            {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+            Show Details
           </b-button>
+          <b-button
+            v-if="row.detailsShowing"
+            size="sm"
+            @click="toggle_details(row.item)">Hide Details</b-button>
         </template>
         <template
           slot="row-details"
@@ -166,18 +171,35 @@
             <b-button
               v-if="role === 'chief' || role === 'detective'"
               :to="{ name: 'edit', params: { compnos:row.item.compnos, formNature:row.item.naturecode, crimecode:row.item.main_crimecode, incident:row.item.incident_type_description, district:row.item.reptdistrict, reporting:row.item.reptdistrict, fromdate:row.item.fromdate, weapontype:row.item.weapontype, shooting:row.item.shooting, shift:row.item.shift, year:row.item.year, month:row.item.month, day_week:row.item.day_week, ucrpart:row.item.ucrpart, formX:row.item.x, formY:row.item.y, streetname:row.item.streetname, xstreetname:row.item.xstreetname, location:row.item.location }}"
-              size="sm">Edit</b-button>
+              size="sm"
+              class="btn btn-primary"
+              style="background-color: #007bff; border-color: #007bff;">Edit</b-button>
             <b-button
-              v-if="role === 'chief'"
+              v-if="role === 'chief' && confirm === false"
               size="sm"
               style="background-color: #dc3545; border-color: #dc3545;"
-              @click="deleteReport(row.item.compnos)">Delete</b-button>
+              @click="toggle_confirm()">Delete</b-button>
+            <b-button
+              v-if="role === 'chief' && confirm === true"
+              size="sm"
+              style="background-color: #dc3545; border-color: #dc3545; border-radius: 5px 0 0 5px;"
+              @click="deleteReport(row.item.compnos)">Confirm delete</b-button>
+            <b-button
+              v-if="role === 'chief' && confirm === true"
+              size="sm"
+              class="btn btn-success"
+              style="margin-left: -5px; border-radius: 0 5px 5px 0; border-left: 1px solid white;"
+              @click="toggle_confirm()">Cancel delete</b-button>
             <b-button
               size="sm"
-              @click="row.toggleDetails">Hide Details</b-button>
+              @click="toggle_details(row.item)">Hide Details</b-button>
             <p
               v-if="formSuccess"
               class="error">{{ formSuccess }}</p>
+            <p
+              v-if="formWarning"
+              style="margin-left: 30px;"
+              class="error">{{ formWarning }}</p>
           </b-card>
         </template>
       </b-table>
@@ -229,11 +251,13 @@ export default {
       formError: null,
       isBusy: false,
       formSuccess: null,
+      formWarning: null,
       field:'weapontype',
       keyword:'',
       table:null,
       sortBy: 'compnos',
       sortDesc: false,
+      confirm: false,
       optionField: [{id: 'weapontype', label: 'By Weapon Type'}, {id: 'naturecode', label: 'By Nature Code'}, {id: 'main_crimecode', label: 'By Crime Code'}, {id: 'reptdistrict', label: 'By District'}, {id: 'fromdate', label: 'By Date'}, {id: 'streetname', label: 'By Street Name'}, {id: 'shift', label: 'By Shift'}, {id: 'day_week', label: 'By Day of the Week'}, {id: 'incident_type_description', label: 'By Incident Type'}],
       }
   },
@@ -286,6 +310,23 @@ export default {
         this.formSuccess = res.message
         console.log(res)
       })
+    },
+    toggle_confirm() {
+      this.confirm = !this.confirm;
+      if (this.confirm == true) {
+        this.formWarning = "Are you sure you want to do this?";
+      } else {
+        this.formWarning = null;
+      }
+    },
+    toggle_details(row) {
+      if (row._showDetails) {
+      row._showDetails = false;
+    } else {
+      row._showDetails = true;
+    }
+      this.confirm = false;
+      this.formWarning = null;
     }
   }
 }

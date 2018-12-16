@@ -33,7 +33,7 @@
       style="margin-left: 360px; margin-top: 140px; max-width: 70%;">
       <div
         class="card"
-        style="margin-bottom: 50px;">
+        style="margin-bottom: 50px; background: rgb(42, 63, 84);">
         <div
           class="card-body"
           style="margin-left: 30px; margin-right: 30px;">

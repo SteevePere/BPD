@@ -4,39 +4,39 @@
     <div id="controls">
       <b-button
         id="vandalism"
-        :size="sm"
+        size="sm"
         class="control_buttons"
         style="background-color: rgba(0, 231, 255, 0.40); border-radius: 5px 0 0 5px; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Vandalism</b-button>
       <b-button
         id="gta"
-        :size="sm"
+        size="sm"
         class="control_buttons"
         style="background-color: rgba(255, 255, 255, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Auto Theft</b-button>
       <b-button
         id="robbery"
-        :size="sm"
+        size="sm"
         class="control_buttons"
         style="background-color: rgba(255, 153, 255, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
       >Robbery</b-button>
       <b-button
         id="drugs"
-        :size="sm"
+        size="sm"
         class="control_buttons"
         style="background-color: rgba(244, 131, 66, 0.55); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Drug Charges</b-button>
       <b-button
         id="assault"
-        :size="sm"
+        size="sm"
         class="control_buttons"
         style="background-color: rgba(26, 224, 49, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
       >Assault</b-button>
       <b-button
         id="clear"
-        :size="sm"
+        size="sm"
         class="control_buttons"
-        style="background-color: rgba(255, 0.5, 0, 0.40); border-radius: 0 5px 5px 0; border-color: rgba(0, 231, 255, 0);"
+        style="background-color: rgba(255, 0.5, 0, 0.40); border-radius: 0 5px 5px 0; border-color: rgba(0, 231, 255, 0);-"
       >Clear Map</b-button>
       <p
         v-if="formError"
@@ -317,9 +317,9 @@
                    latitude: lat
                  });
                  var markerSymbol = new SimpleMarkerSymbol({
-                   color: [26, 224, 49, 0.45],
+                   color: [26, 224, 49, 0.40],
                    outline: {
-                     color: [26, 224, 49, 0.45],
+                     color: [26, 224, 49, 0.40],
                      width: 1
                    }
                  });
