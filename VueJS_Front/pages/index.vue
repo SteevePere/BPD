@@ -5,7 +5,7 @@
     <div class="login">
       <img
         class="logo"
-        style="margin-bottom: 10px;"
+        style="margin-bottom: 15px;"
         src="~/assets/bpd-badge.png">
       <h1 class="Content_Title">Boston Police Department</h1>
       <form @submit.prevent="login">
@@ -77,7 +77,7 @@ export default {
         this.formError = null
         this.token = this.$store.state.authUser.data.token
         this.notifs = this.$store.state.authUser.notifs.total_notifs
-        this.$router.push('/home')
+        this.$router.push({ name: 'home', params: { just_logged_in: true }})
       } catch (e) {
         this.formError = e.message
       }
@@ -121,7 +121,7 @@ body {
 }
 
 .logo {
-  max-height: 230px;
+  max-height: 250px;
   margin-left: 0%;
 }
 

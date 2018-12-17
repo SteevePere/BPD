@@ -76,33 +76,51 @@ export default {
       role: this.$store.state.authUser.data.role,
       notifs: this.$store.state.authUser.notifs.total_notifs,
       navbar: 0,
+      just_logged_in: this.$route.params.just_logged_in
     }
   },
   mounted() {
-    setTimeout(function() {
-      var el = document.getElementById('vandalism')
-      el.click();
-    }, 1500);
-    setTimeout(function() {
-      var el = document.getElementById('gta')
-      el.click();
-    }, 2200);
-    setTimeout(function() {
-      var el = document.getElementById('robbery')
-      el.click();
-    }, 3400);
-    setTimeout(function() {
-      var el = document.getElementById('drugs')
-      el.click();
-    }, 4600);
-    setTimeout(function() {
-      var el = document.getElementById('assault')
-      el.click();
-    }, 5800);
-    setTimeout(function() {
-      var el = document.getElementById('clear')
-      el.click();
-    }, 7000);
+
+    if (this.just_logged_in) {
+
+      document.getElementById("vandalism").style.visibility = "hidden";
+      document.getElementById("gta").style.visibility = "hidden";
+      document.getElementById("robbery").style.visibility = "hidden";
+      document.getElementById("drugs").style.visibility = "hidden";
+      document.getElementById("assault").style.visibility = "hidden";
+      document.getElementById("clear").style.visibility = "hidden";
+
+      setTimeout(function() {
+        var el = document.getElementById('vandalism')
+        el.click();
+        el.style.visibility = "visible";
+      }, 1500);
+      setTimeout(function() {
+        var el = document.getElementById('gta')
+        el.click();
+        el.style.visibility = "visible";
+      }, 2400);
+      setTimeout(function() {
+        var el = document.getElementById('robbery')
+        el.click();
+        el.style.visibility = "visible";
+      }, 3600);
+      setTimeout(function() {
+        var el = document.getElementById('drugs')
+        el.click();
+        el.style.visibility = "visible";
+      }, 4800);
+      setTimeout(function() {
+        var el = document.getElementById('assault')
+        el.click();
+        el.style.visibility = "visible";
+      }, 6000);
+      setTimeout(function() {
+        var el = document.getElementById('clear')
+        el.click();
+        el.style.visibility = "visible";
+      }, 7600);
+    }
   },
   middleware : 'auth'
 }
@@ -270,7 +288,7 @@ export default {
 
 
   #viewDiv {
-    height: 800px;
+    height: 932px!important;
     bottom: 0;
     width: 100%;
   }
@@ -304,7 +322,7 @@ export default {
   }
 
   .esri-ui-manual-container>.esri-component {
-    background: #343a40;
+    background: rgb(33, 37, 41)!important;
     color: grey;
   }
 

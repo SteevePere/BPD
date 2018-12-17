@@ -34,7 +34,7 @@
     </div>
     <div
       class="col-md-9"
-      style="margin-left: 360px; margin-top: 140px; max-width: 70%;">
+      style="margin-left: 400px; margin-top: 140px; max-width: 70%;">
       <div
         class="card"
         style="margin-bottom: 50px; background: rgb(42, 63, 84);">
