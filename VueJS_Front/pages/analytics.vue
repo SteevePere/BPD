@@ -31,7 +31,42 @@
           </b-dropdown>
         </ul>
       </div>
-      <Map/>
+      <div
+        style="float:left; width:50%; padding-top: 20px;">
+        <h3
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Month</h3>
+        <MonthChart
+          style="width:100%;padding: 20px;"
+        />
+      </div>
+      <div
+        style="float:right; width:50%; background: rgb(33, 37, 41); padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Day</h2>
+        <DayChart
+          style="padding: 20px; background: rgb(33, 37, 41);"
+        />
+      </div>
+      <div
+        style="float:left; width:50%; background: rgb(33, 37, 41); padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per District</h2>
+        <DistrictChart
+          style="padding: 20px;"
+        />
+      </div>
+      <div
+        style="float:right; width:50%; padding-top: 20px;">
+        <h2
+          style="color: white; text-align: center; font-size:16px;"
+        >Incidents per Weapon Type</h2>
+        <WeaponChart
+          style="padding: 20px;"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -78,35 +113,9 @@ export default {
       navbar: 0,
     }
   },
-  mounted() {
-    setTimeout(function() {
-      var el = document.getElementById('vandalism')
-      el.click();
-    }, 1500);
-    setTimeout(function() {
-      var el = document.getElementById('gta')
-      el.click();
-    }, 2200);
-    setTimeout(function() {
-      var el = document.getElementById('robbery')
-      el.click();
-    }, 3400);
-    setTimeout(function() {
-      var el = document.getElementById('drugs')
-      el.click();
-    }, 4600);
-    setTimeout(function() {
-      var el = document.getElementById('assault')
-      el.click();
-    }, 5800);
-    setTimeout(function() {
-      var el = document.getElementById('clear')
-      el.click();
-    }, 7000);
-  },
-  middleware : 'auth'
-}
+middleware : 'auth',
 
+}
 </script>
 
 <style>
@@ -271,7 +280,6 @@ export default {
 
   #viewDiv {
     height: 800px;
-    bottom: 0;
     width: 100%;
   }
   .title
@@ -304,7 +312,7 @@ export default {
   }
 
   .esri-ui-manual-container>.esri-component {
-    background: #343a40;
+    background: #2A3F54;
     color: grey;
   }
 

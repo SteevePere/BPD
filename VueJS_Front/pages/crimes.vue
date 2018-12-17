@@ -18,11 +18,15 @@
             <b-dropdown-item
               v-if="role === 'chief' || role === 'detective'"
               class="menu-item"
-              to="/crimes">Add New
+              to="/crimes">File New
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>
         </ul>
@@ -336,8 +340,8 @@ export default {
       reporting:'',
       fromdate:'',
       weapontype:'',
-      shooting:'True',
-      domestic:'True',
+      shooting:'',
+      domestic:'',
       shift:'',
       year:'',
       month:'',

@@ -18,11 +18,15 @@
             <b-dropdown-item
               v-if="role === 'chief' || role === 'detective'"
               class="menu-item"
-              to="/crimes">Add New
+              to="/crimes">File New
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item
+              to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>
         </ul>
@@ -39,7 +43,7 @@
       <b-button
         v-if="role === 'chief' || role === 'detective'"
         style="margin: 0 0 0 460px; float:left;"
-        to="/crimes">New Report</b-button>
+        to="/crimes">File a new Report</b-button>
       <select
         v-model="field"
         class="form-control here"
@@ -170,7 +174,7 @@
             <br>
             <b-button
               v-if="role === 'chief' || role === 'detective'"
-              :to="{ name: 'edit', params: { compnos:row.item.compnos, formNature:row.item.naturecode, crimecode:row.item.main_crimecode, incident:row.item.incident_type_description, district:row.item.reptdistrict, reporting:row.item.reptdistrict, fromdate:row.item.fromdate, weapontype:row.item.weapontype, shooting:row.item.shooting, shift:row.item.shift, year:row.item.year, month:row.item.month, day_week:row.item.day_week, ucrpart:row.item.ucrpart, formX:row.item.x, formY:row.item.y, streetname:row.item.streetname, xstreetname:row.item.xstreetname, location:row.item.location }}"
+              :to="{ name: 'edit', params: { compnos:row.item.compnos, formNature:row.item.naturecode, crimecode:row.item.main_crimecode, incident:row.item.incident_type_description, district:row.item.reptdistrict, reporting:row.item.reptdistrict, fromdate:row.item.fromdate, weapontype:row.item.weapontype, shooting:row.item.shooting, domestic:row.item.domestic, shift:row.item.shift, year:row.item.year, month:row.item.month, day_week:row.item.day_week, ucrpart:row.item.ucrpart, formX:row.item.x, formY:row.item.y, streetname:row.item.streetname, xstreetname:row.item.xstreetname, location:row.item.location }}"
               size="sm"
               class="btn btn-primary"
               style="background-color: #007bff; border-color: #007bff;">Edit</b-button>

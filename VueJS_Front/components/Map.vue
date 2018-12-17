@@ -1,42 +1,44 @@
 <template>
   <section class="container">
     <div id="viewDiv"/>
-    <div id="controls">
+    <div
+      id="controls"
+      class="controls">
       <b-button
         id="vandalism"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(0, 231, 255, 0.40); border-radius: 5px 0 0 5px; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        class="control_buttons_vandalism"
+        style="background-color: rgba(0, 231, 255, 0.20); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Vandalism</b-button>
       <b-button
         id="gta"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(255, 255, 255, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        class="control_buttons_gta"
+        style="background-color: rgba(255, 255, 255, 0.20); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Auto Theft</b-button>
       <b-button
         id="robbery"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(255, 153, 255, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
+        class="control_buttons_robbery"
+        style="background-color: rgba(255, 153, 255, 0.20); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
       >Robbery</b-button>
       <b-button
         id="drugs"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(244, 131, 66, 0.55); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        class="control_buttons_drugs"
+        style="background-color: rgba(244, 131, 66, 0.35); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
       >Drug Charges</b-button>
       <b-button
         id="assault"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(26, 224, 49, 0.40); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
+        class="control_buttons_assault"
+        style="background-color: rgba(26, 224, 49, 0.20); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
       >Assault</b-button>
       <b-button
         id="clear"
         size="sm"
-        class="control_buttons"
-        style="background-color: rgba(255, 0.5, 0, 0.40); border-radius: 0 5px 5px 0; border-color: rgba(0, 231, 255, 0);-"
+        class="control_buttons_clear"
+        style="background-color: rgba(255, 0.5, 0, 0.20); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0);-"
       >Clear Map</b-button>
       <p
         v-if="formError"
@@ -341,7 +343,7 @@
        }
 
           })
-         view.ui.add(document.getElementById("controls"), "top-right");
+         view.ui.add(document.getElementById("controls"), "bottom-right");
        });
     },
     methods: {
@@ -381,7 +383,86 @@
       /* background-color: rgba(255, 255, 255, 0.6); */
     }
 
-  .control_buttons {
-    margin-right: 0;
-  }
+.esri-ui-bottom-right {
+  margin-bottom: -10px;
+  margin-right: 31%;
+}
+  .control_buttons_vandalism {
+  margin-right: 0;
+  -webkit-animation-name: bluePulse;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes bluePulse {
+  from { background-color: rgba(0, 231, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(0, 231, 255, 0.40); }
+  50% { background-color: rgba(0, 231, 255, 0.40); -webkit-box-shadow: 0 0 9px #9df1f9; }
+  to { background-color: rgba(0, 231, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(0, 231, 255, 0.40); }
+}
+
+  .control_buttons_gta {
+  margin-right: 0;
+  -webkit-animation-name: whitePulse;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes whitePulse {
+  from { background-color: rgba(255, 255, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
+  50% { background-color: rgba(255, 255, 255, 0.40); -webkit-box-shadow: 0 0 9px #fff; }
+  to { background-color: rgba(255, 255, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
+}
+
+.control_buttons_robbery {
+margin-right: 0;
+-webkit-animation-name: purplePulse;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes purplePulse {
+from { background-color: rgba(255, 153, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 153, 255, 0.40); }
+50% { background-color: rgba(255, 153, 255, 0.40); -webkit-box-shadow: 0 0 9px #f9cff9; }
+to { background-color: rgba(255, 153, 255, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 153, 255, 0.40); }
+}
+
+.control_buttons_drugs {
+margin-right: 0;
+-webkit-animation-name: orangePulse;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes orangePulse {
+from { background-color: rgba(244, 131, 66, 0.40); -webkit-box-shadow: 0 0 9px rgba(244, 131, 66, 0.40); }
+50% { background-color: rgba(244, 131, 66, 0.40); -webkit-box-shadow: 0 0 9px #f9b790; }
+to { background-color: rgba(244, 131, 66, 0.40); -webkit-box-shadow: 0 0 9px rgba(244, 131, 66, 0.40); }
+}
+
+.control_buttons_assault {
+margin-right: 0;
+-webkit-animation-name: greenPulse;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes greenPulse {
+from { background-color: rgba(26, 224, 49, 0.40); -webkit-box-shadow: 0 0 9px rgba(26, 224, 49, 0.40); }
+50% { background-color: rgba(26, 224, 49, 0.40); -webkit-box-shadow: 0 0 9px #8df499; }
+to { background-color: rgba(26, 224, 49, 0.40); -webkit-box-shadow: 0 0 9px rgba(26, 224, 49, 0.40); }
+}
+
+.control_buttons_clear {
+margin-right: 0;
+-webkit-animation-name: redPulse;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes redPulse {
+from { background-color: rgba(255, 0.5, 0, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 0.5, 0, 0.40); }
+50% { background-color: rgba(255, 0.5, 0, 0.40); -webkit-box-shadow: 0 0 9px #f99092; }
+to { background-color: rgba(255, 0.5, 0, 0.40); -webkit-box-shadow: 0 0 9px rgba(255, 0.5, 0, 0.40); }
+}
+
 </style>
