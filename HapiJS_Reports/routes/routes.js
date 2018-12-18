@@ -126,10 +126,22 @@ exports.plugin = {
 				handler: UserController.pending
 			},
 			{
+				//Get all accounts
+				method: 'GET',
+				path: '/all_users',
+				handler: UserController.all_users
+			},
+			{
 				//Activate pending user account (set status to ON)
 				method: 'PUT',
 				path: '/activate_user/{id}',
 				handler: UserController.activate
+			},
+			{
+				//Block user account (set status to OFF)
+				method: 'PUT',
+				path: '/block_user/{id}',
+				handler: UserController.block
 			}
     ];
 

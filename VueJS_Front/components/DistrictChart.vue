@@ -25,9 +25,9 @@ export default {
   mounted () {
 
     this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 650)
-    this.gradient.addColorStop(0, 'rgba(244, 131, 66, 0.4)')
-    this.gradient.addColorStop(0.5, 'rgba(244, 131, 66, 0.25)');
-    this.gradient.addColorStop(0.5, 'rgba(244, 131, 66, 0)');
+    this.gradient.addColorStop(0, 'rgba(252, 255, 5, 0.4)')
+    this.gradient.addColorStop(0.5, 'rgba(252, 255, 5, 0.25)');
+    this.gradient.addColorStop(0.5, 'rgba(252, 255, 5, 0)');
 
     this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 750)
     this.gradient2.addColorStop(0, 'rgba(102, 255, 51, 0.4)')
@@ -40,9 +40,9 @@ export default {
     this.gradient3.addColorStop(1, 'rgba(0, 231, 255, 0)');
 
     this.gradient4 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.gradient4.addColorStop(0, 'rgba(255, 153, 255, 0.5)')
-    this.gradient4.addColorStop(0.5, 'rgba(255, 153, 255, 0.25)');
-    this.gradient4.addColorStop(1, 'rgba(255, 153, 255, 0)');
+    this.gradient4.addColorStop(0, 'rgba(249, 99, 249, 0.5)')
+    this.gradient4.addColorStop(0.5, 'rgba(249, 99, 249, 0.25)');
+    this.gradient4.addColorStop(1, 'rgba(249, 99, 249, 0)');
 
     this.gradient5 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
     this.gradient5.addColorStop(0, 'rgba(255, 255, 255, 0.9)')
@@ -61,7 +61,7 @@ export default {
           hoverBackgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           borderWidth: 1,
           backgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
-          data: [2792, 815, 2912, 2445, 3914]
+          data: [1992, 915, 2912, 2445, 4214]
         },
         {
           label: '2015',
@@ -83,13 +83,16 @@ export default {
           hoverBackgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
           borderWidth: 1,
           backgroundColor: [this.gradient, this.gradient3,this.gradient4,this.gradient2,this.gradient5],
-          data: [2649, 835, 2053, 2513, 2998]
+          data: [2149, 1335, 2053, 2513, 2098]
         },
       ]
     },
     {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 2000,
+      },
       legend: {
         display: true,
         labels: {

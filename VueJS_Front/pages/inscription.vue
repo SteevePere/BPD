@@ -22,10 +22,17 @@
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="role === 'agent'"
+              to="/allReport">Browse and Search
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
               to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>
@@ -46,7 +53,7 @@
               <div style="margin-top: 50px; text-align: center; ">
                 <h4
                   style="color: white;"
-                >New user</h4>
+                >New User</h4>
                 <br>
               </div>
             </div>

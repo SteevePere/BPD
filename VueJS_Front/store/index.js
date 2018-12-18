@@ -8,6 +8,7 @@ export const state = () => ({
   authToken: null,
   Getpermission: null,
   Pending:null,
+  AllUsers:null,
   Repport: null,
   Search: null,
   map: null,
@@ -33,6 +34,9 @@ export const mutations = {
   },
   SET_Pending: function (state, data) {
     state.Pending = data
+  },
+  SET_AllUsers: function (state, data) {
+    state.AllUsers = data
   },
   Get_Insident(state,data) {
     state.type_insident = data
@@ -87,7 +91,7 @@ export const actions = {
         throw new Error('Wrong login or password')
       }
       else if(error.response && error.response.status === 403) {
-        throw new Error('Your account has not yet been activated')
+        throw new Error('Your account has been suspended, or not yet been activated')
       }
       throw error
     }
@@ -228,6 +232,21 @@ export const actions = {
   }
 },
 
+async usersAll({ commit }, { token}) {
+try {
+  axios.defaults.headers = {
+    'authorization': token
+}
+const { data } = await axios.get('/all_users')
+commit('SET_AllUsers', data)
+} catch (error) {
+if (error.response && error.response.status === 403) {
+  throw new Error('Failed')
+}
+throw error
+}
+},
+
   /*
   * fonction for get all Report
   * @param : token
@@ -317,7 +336,7 @@ export const actions = {
         'authorization': token
       }
       const { data } = await axios({
-          url: 'http://192.168.0.40:80/searchResults',
+          url: 'http://192.168.34.28:80/searchResults',
           method: 'GET',
           params: {
             keyword: keyword,
@@ -377,7 +396,7 @@ export const actions = {
   async GetCsv({token}){
     try {
       axios({
-          url: 'http://192.168.0.40:8081/exportToCsv',
+          url: 'http://192.168.34.28:8081/exportToCsv',
           method: 'GET',
           responseType: 'blob',
         }).then((response) => {
@@ -405,7 +424,7 @@ export const actions = {
     }
      await axios({
       method: 'post',
-      url: 'http://192.168.0.40:8080/user',
+      url: 'http://192.168.34.28:8080/user',
       params: {
         first_name: first_name,
         last_name: last_name,
@@ -442,6 +461,25 @@ export const actions = {
     } catch (error) {
       if (error.response) {
         throw new Error('Activation error')
+      }
+      throw error
+    }
+  },
+
+  async block({commit},{token, id})
+  {
+    try {
+        axios.defaults.headers = {
+          'Authorization': token
+      }
+      const { data } = await axios.put('/block_user/'+id)
+      commit('SET_Pending',data)
+      return {
+        message : 'Success'
+      }
+    } catch (error) {
+      if (error.response) {
+        throw new Error('Blocking error')
       }
       throw error
     }

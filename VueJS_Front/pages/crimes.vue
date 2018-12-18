@@ -22,10 +22,17 @@
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="role === 'agent'"
+              to="/allReport">Browse and Search
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
               to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>

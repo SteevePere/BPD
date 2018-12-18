@@ -73,7 +73,7 @@ export default {
           data: [99, 404, 212, 1678]
         },
       ]
-    }, {responsive: true, maintainAspectRatio: false})
+    }, {responsive: true, maintainAspectRatio: false, animation: {duration: 2000}})
   },
   methods : {
     async GetPerWeapon() {

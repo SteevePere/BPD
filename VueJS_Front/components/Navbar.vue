@@ -137,4 +137,8 @@ navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark {
 .badge-danger {
   font-style: normal;
 }
+
+.bg-dark {
+  background: rgb(33, 37, 41);
+}
 </style>

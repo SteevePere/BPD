@@ -22,10 +22,17 @@
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="role === 'agent'"
+              to="/allReport">Browse and Search
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
               to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>
@@ -119,7 +126,7 @@ export default {
         var el = document.getElementById('clear')
         el.click();
         el.style.visibility = "visible";
-      }, 7600);
+      }, 7200);
     }
   },
   middleware : 'auth'
@@ -187,7 +194,7 @@ export default {
       margin-right: -250px;
       margin-top:50px;
       overflow-y: auto;
-      background: rgb(33, 37, 41);
+      background: #343a40 !important;
       -webkit-transition: all 0.5s ease;
       -moz-transition: all 0.5s ease;
       -o-transition: all 0.5s ease;

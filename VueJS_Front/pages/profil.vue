@@ -22,10 +22,17 @@
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
               to="/allReport">Browse and Manage
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="role === 'agent'"
+              to="/allReport">Browse and Search
             </b-dropdown-item>
             <b-dropdown-divider/>
             <b-dropdown-item
+              v-if="role === 'chief' || role === 'detective'"
+              class="menu-item"
               to="/analytics">Analytics
             </b-dropdown-item>
           </b-dropdown>
@@ -46,9 +53,20 @@
                 style="float:left;">
                 <div class="profile-header-img">
                   <img
+                    v-if="role === 'chief'"
                     class="img-circle img"
                     style="height: 150px; width: 120px;"
-                    src="../assets/Profile.jpeg">
+                    src="../assets/ProfileChief.jpeg">
+                  <img
+                    v-if="role != 'chief' && gender === 'M'"
+                    class="img-circle img"
+                    style="height: 150px; width: 150px;"
+                    src="../assets/policeman.png">
+                  <img
+                    v-if="role != 'chief' && gender === 'F'"
+                    class="img-circle img"
+                    style="height: 150px; width: 150px;"
+                    src="../assets/policewoman.png">
                 </div>
               </div>
               <div style="float:left; margin-top: 50px; margin-left: 25px;">

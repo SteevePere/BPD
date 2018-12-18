@@ -76,7 +76,7 @@ export default {
           data: [5402,6228,7912]
         },
       ]
-    }, {responsive: true, maintainAspectRatio: false})
+    }, {responsive: true, maintainAspectRatio: false, animation: {duration: 2000}})
   },
   methods : {
     async GetPerMonth() {

@@ -8,37 +8,37 @@
         id="vandalism"
         size="sm"
         class="control_buttons_vandalism"
-        style="background-color: rgba(0, 231, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        style="background-color: rgba(0, 231, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px; width: 100px;"
       >Vandalism</b-button>
       <b-button
         id="gta"
         size="sm"
         class="control_buttons_gta"
-        style="background-color: rgba(255, 255, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        style="background-color: rgba(255, 255, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px; width: 100px;"
       >Auto Theft</b-button>
       <b-button
         id="robbery"
         size="sm"
         class="control_buttons_robbery"
-        style="background-color: rgba(255, 153, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
+        style="background-color: rgba(255, 153, 255, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px; width: 100px;"
       >Robbery</b-button>
       <b-button
         id="drugs"
         size="sm"
         class="control_buttons_drugs"
-        style="background-color: rgba(244, 131, 66, 0.30); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px;"
+        style="background-color: rgba(244, 131, 66, 0.30); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -5px; width: 100px;"
       >Drug Charges</b-button>
       <b-button
         id="assault"
         size="sm"
         class="control_buttons_assault"
-        style="background-color: rgba(26, 224, 49, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px;"
+        style="background-color: rgba(26, 224, 49, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); margin-right: -6px; width: 100px;"
       >Assault</b-button>
       <b-button
         id="clear"
         size="sm"
         class="control_buttons_clear"
-        style="background-color: rgba(255, 0.5, 0, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0);-"
+        style="background-color: rgba(255, 0.5, 0, 0.15); border-radius: 0 0 0 0; border-color: rgba(0, 231, 255, 0); width: 100px;"
       >Clear Map</b-button>
       <p
         v-if="formError"
@@ -385,7 +385,7 @@
 
 .esri-ui-bottom-right {
   margin-bottom: -5px;
-  margin-right: 35%;
+  margin-right: 25%;
 }
   .control_buttons_vandalism {
   margin-right: 0;

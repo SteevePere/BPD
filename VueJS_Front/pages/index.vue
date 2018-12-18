@@ -34,7 +34,7 @@
         </div>
         <button
           type="submit"
-          class="btn btn-secondary"
+          class="submit"
           style="float: center; margin-top: 20px; width: 175px;">Sign In</button>
         <p
           v-if="formError"
@@ -115,9 +115,24 @@ body {
   color: #ff3333;
 }
 
-.login {
+/* .login {
   text-align: center;
   padding: 30px;
+} */
+
+.login {
+
+  text-align: center;
+  padding: 30px;
+  top: calc(50% - 150px);
+  left: calc(50% - 150px);
+  /* width: 300px; */
+  /* height: 300px; */
+  border-radius: 0%;
+  box-shadow:
+    0 0 20px #fff,
+    -10px 0 40px #fff,
+    10px 0 100px #fff;
 }
 
 .logo {
@@ -127,5 +142,47 @@ body {
 
 .btnInfo {
   margin-top: 10px;
+}
+
+.form-control:valid {
+  background-color:  #fff!important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.submit {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  margin-right: 0;
+  -webkit-animation-name: whitePulse;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  cursor:pointer;
+}
+
+@-webkit-keyframes whitePulse {
+  from { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
+  50% { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px #fff; }
+  to { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
 }
 </style>
