@@ -56,12 +56,12 @@
                 <div style="margin-top: 50px; text-align: center; ">
                   <h4
                     v-if="dataobjct[0]"
-                    style="color: white;"
+                    style="color: white; margin-bottom: 50px;"
                   >Accounts Awaiting Review</h4>
-                  <h4
+                  <p
                     v-else
                     style="color: white;"
-                  >Nothing to review for now. Good job, chief!</h4>
+                  >Nothing to review for now... Well done, Chief!</p>
                 </div>
                 <div class="table">
                   <b-table
@@ -88,21 +88,21 @@
                     </template>
                   </b-table>
                   <br>
-                  <b-button
-                    type="button"
-                    name="button"
-                    class="btn btn-info"
-                    style="margin-left:73%; background-color: #337ab7; border-color: #337ab7;"
-                    @click="getCSV">Export all users to CSV file</b-button>
                   <p
                     v-if="formError"
                     class="error">{{ formError }}</p>
                 </div>
-                <div style="margin-top: 0px; text-align: center; ">
+                <div style="margin-top: 30px; text-align: center; ">
                   <h4
                     style="color: white;"
                   >All Users</h4>
                 </div>
+                <b-button
+                  type="button"
+                  name="button"
+                  class="btn btn-info"
+                  style="float:right; margin: 20px 0 20px 0; background-color: #337ab7; border-color: #337ab7;"
+                  @click="getCSV">Download users as CSV file</b-button>
                 <div class="table">
                   <b-table
                     v-if="dataobjct2[0]"
@@ -281,7 +281,7 @@ export default {
 .table {
   margin:auto;
   /* margin-left: 175px; */
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
   border-radius: 5px;
 

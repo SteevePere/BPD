@@ -385,7 +385,7 @@
 
 .esri-ui-bottom-right {
   margin-bottom: -5px;
-  margin-right: 25%;
+  margin-right: 31%;
 }
   .control_buttons_vandalism {
   margin-right: 0;

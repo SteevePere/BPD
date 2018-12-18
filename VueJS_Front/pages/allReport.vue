@@ -59,15 +59,16 @@
             style="margin-right: 0;">
             <div class="col-md-12">
               <p
-                style="margin:30px 180px 20px 0;">
+                style="margin:30px 0 20px 0;">
                 <b-button
                   v-if="role === 'chief' || role === 'detective'"
-                  style="margin: 0 0 0 0px; float:left;"
-                  to="/crimes">File a new Report</b-button>
+                  style="margin: 0 0 0 0px; float:left; background-color: rgb(51, 122, 183); border-color: rgb(51, 122, 183);"
+                  class="btn btn-primary"
+                  to="/crimes">File New Report</b-button>
                 <select
                   v-model="field"
                   class="form-control here"
-                  style="width: 15%; float:right; margin-right:0px; margin-left: 5px;"
+                  style="width: 25%; float:right; margin-right:0px; margin-left: 5px;"
                   required>
                   <option
                     v-for="option in optionField"
@@ -79,7 +80,7 @@
                 class="form-control here"
                 type="text"
                 placeholder="Search Reports..."
-                style="width: 15%; float:right; "
+                style="width: 25%; float:right; "
                 required
                 @keyup="search()">
               <br
@@ -218,6 +219,7 @@
                         @click="toggle_details(row.item)">Hide Details</b-button>
                       <p
                         v-if="formSuccess"
+                        style="margin-left: 35px;"
                         class="error">{{ formSuccess }}</p>
                       <p
                         v-if="formWarning"
@@ -234,7 +236,7 @@
             :total-rows="100"
             :per-page="10"
             v-model="currentPage"
-            style="margin-left: 45%;"
+            style="margin-left: 37%;"
             @input="getPostData(currentPage)"
           />
         </div>
@@ -335,9 +337,10 @@ export default {
         token: this.token,
         compnos: row.item.compnos
       }).then((res) => {
+        this.formWarning = null;
         this.formSuccess = res.message
-        console.log(res)
-        this.dataobjct = this.dataobjct + 1;
+        setTimeout(() => this.dataobjct.splice(row, 1), 2500);
+        // this.dataobjct.splice(row, 1)
       })
     },
     toggle_confirm() {
@@ -367,6 +370,7 @@ export default {
 .table_all_reports {
   margin-left: 0px;
   margin-top: 55px;
+  max-width: 100%;
 }
 
 .table_all_reports .table {
@@ -374,10 +378,11 @@ export default {
   border: 0px;
   border-radius: 5px;
   background-color: white;
+  max-width: 100%;
 }
 
 table.b-table {
-  max-width: 90%;
+  max-width: 100%;
   border-radius: 0px;
 }
 

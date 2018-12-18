@@ -157,6 +157,7 @@ input:-webkit-autofill:active {
 
 .submit {
   color: #fff;
+  padding-right: 15px;
   background-color: #6c757d;
   border-color: #6c757d;
   display: inline-block;
@@ -183,6 +184,6 @@ input:-webkit-autofill:active {
 @-webkit-keyframes whitePulse {
   from { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
   50% { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px #fff; }
-  to { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px rgba(255, 255, 255, 0.40); }
+  to { background-color: rgba(255, 255, 255, 0.30); -webkit-box-shadow: 0 0 9px #1a2633; }
 }
 </style>

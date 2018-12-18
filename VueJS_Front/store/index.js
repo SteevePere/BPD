@@ -336,7 +336,7 @@ throw error
         'authorization': token
       }
       const { data } = await axios({
-          url: 'http://192.168.34.28:80/searchResults',
+          url: 'http://192.168.0.40:80/searchResults',
           method: 'GET',
           params: {
             keyword: keyword,
@@ -396,7 +396,7 @@ throw error
   async GetCsv({token}){
     try {
       axios({
-          url: 'http://192.168.34.28:8081/exportToCsv',
+          url: 'http://192.168.0.40:8081/exportToCsv',
           method: 'GET',
           responseType: 'blob',
         }).then((response) => {
@@ -424,7 +424,7 @@ throw error
     }
      await axios({
       method: 'post',
-      url: 'http://192.168.34.28:8080/user',
+      url: 'http://192.168.0.40:8080/user',
       params: {
         first_name: first_name,
         last_name: last_name,
@@ -494,7 +494,7 @@ throw error
       const { data } = await axios.delete('/reports/'+compnos)
       commit('SET_AllReport',data)
       return {
-        message : 'Report has been deleted'
+        message : 'Report has been deleted!'
       }
     } catch (error) {
       if (error.response) {
